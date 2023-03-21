@@ -4,10 +4,13 @@ import { signWithDealer } from "../js/lib/kcf/api";
 import { DEFAULT_CHAINWEB_ENDPOINT } from "../js/lib/kcf/consts";
 import { sendTx } from "../js/lib/kda/utils";
 
+/*
+// TODO: re-enable edge when nodejs buffer and crypto is supported by vercel edge
 export const config = {
   runtime: "edge",
   regions: [],
 };
+*/
 
 /**
  * @param {Request} req
@@ -18,8 +21,10 @@ export default async (req) => {
     return new Response("only POST allowed", { status: 400 });
   }
   /** @type {{ cmds: [import("@kadena/types").ICommand] }} */
-  const { cmds: [cmd] } = await req.json();
+  const {
+    cmds: [cmd],
+  } = await req.json();
   signWithDealer(cmd);
   const res = await sendTx(DEFAULT_CHAINWEB_ENDPOINT, cmd);
   return new Response(JSON.stringify(res));
-}
+};

@@ -4,10 +4,13 @@ import { signWithDealer } from "../js/lib/kcf/api";
 import { DEFAULT_CHAINWEB_ENDPOINT } from "../js/lib/kcf/consts";
 import { localTx } from "../js/lib/kda/utils";
 
+/*
+// TODO: re-enable edge when nodejs buffer and crypto is supported by vercel edge
 export const config = {
   runtime: "edge",
   regions: [],
 };
+*/
 
 /**
  * @param {Request} req
@@ -22,4 +25,4 @@ export default async (req) => {
   signWithDealer(cmd);
   const res = await localTx(DEFAULT_CHAINWEB_ENDPOINT, cmd);
   return new Response(JSON.stringify(res));
-}
+};

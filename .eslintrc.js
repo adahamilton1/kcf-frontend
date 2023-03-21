@@ -66,5 +66,11 @@ module.exports = {
         "no-param-reassign": ["error", { props: false }],
       },
     },
+    {
+      files: "api/**/*.js",
+      rules: {
+        "no-restricted-imports": "off",
+      },
+    },
   ],
 };
