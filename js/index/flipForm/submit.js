@@ -86,6 +86,7 @@ async function onSubmit(event) {
   try {
     // /local to make sure sim works first
     const localRes = await flipLocalTx(toSend);
+    // console.log(localRes);
     if (localRes.result.status === "failure") {
       throw new Error(JSON.stringify(localRes.result.error));
     }
@@ -103,7 +104,11 @@ async function onSubmit(event) {
     "Safe to exit page.<br/>You will be notified when the flip is complete.";
   inProgressDialogViewOnExplorerA.href = toExplorerLink(reqKey);
 
-  addPendingFlip(wallet.account, { reqKey, amount });
+  addPendingFlip(wallet.account, {
+    reqKey,
+    amount,
+    expiration: Date.now() + tx.publicMeta.ttl * 1000,
+  });
   startPollFlipsLoop();
 }
 

@@ -12,6 +12,7 @@ const PENDING_FLIPS_LOCALSTORAGE_KEY = "pendingFlips";
  * @typedef PendingFlip
  * @property {string} reqKey
  * @property {number} amount
+ * @property {number} expiration in timestamp ms (Date.now() compatible)
  */
 
 /**

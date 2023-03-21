@@ -31,7 +31,7 @@ export default defineConfig({
       // so have to manually add missing images in
       includeAssets: [`/favicon.ico`, `/images/*`],
       manifest: {
-        name: "My Web App",
+        name: "Kadena Coin Flip Reborn",
         short_name: "mwa",
         description:
           "Kadena coin flip reborn: play a simple coin flip game with your KDA",

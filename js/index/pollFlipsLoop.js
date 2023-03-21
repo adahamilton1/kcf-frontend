@@ -84,6 +84,16 @@ async function pollFlipsLoop() {
         dialog.getElementsByClassName("view-on-explorer-a")[0];
       explorerLink.href = toExplorerLink(reqKey);
     }
+
+    // remove expired flips
+    const now = Date.now();
+    removePendingFlips(
+      wallet.account,
+      getPendingFlips(wallet.account)
+        .filter(({ expiration }) => expiration < now)
+        .map(({ reqKey }) => reqKey)
+    );
+
     if (getPendingFlips(wallet.account).length === 0) {
       break;
     }
