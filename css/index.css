@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply bg-light-main;
+    @apply dark:bg-dark-main;
+    @apply font-mono;
+    @apply text-light-primary;
+    @apply dark:text-dark-primary;
+  }
+
+  h1 {
+    @apply text-4xl;
+    @apply text-light-primary;
+    @apply dark:text-dark-primary;
+    @apply capitalize;
+    @apply font-medium;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  legend {
+    @apply w-full;
+    @apply text-center;
+    @apply text-2xl;
+  }
+
+  dialog {
+    @apply fixed;
+    @apply w-5/6;
+    /* fixed is positioned relative to viewport,
+     * so body's max-w-xl doesnt apply */
+    @apply max-w-lg;
+    /* IOS SAFARI FUCKING RENDERS DIALOGS WITH NO HEIGHT INSTEAD OF FITTING CONTENT LIKE NORMAL PEOPLE*/
+    /* @apply min-h-[400px]; */
+    @apply max-h-[83.3333%];
+    @apply overflow-auto;
+
+    /* somehow these styles were not inherited from body */
+    @apply bg-light-main;
+    @apply dark:bg-dark-main;
+    @apply text-light-primary;
+    @apply dark:text-dark-primary;
+    @apply font-mono;
+
+    /* centering */
+    /* @apply inset-1/2;
+    transform: translate(-50%, -50%); */
+    @apply self-center;
+    @apply m-auto;
+
+    /* border */
+    @apply rounded-md;
+    @apply border-light-primary;
+    @apply dark:border-dark-primary;
+    @apply border-2;
+  }
+
+  /* need additional container within dialog because 
+   * you cant set display: property of dialog or it'll show */
+  .dialog-container {
+    @apply w-full;
+    /* NB: DO NOT SET HEIGHT OR SAFARI IOS RENDERS THIS WITH NO HEIGHT */
+    /* @apply h-full; */
+
+    @apply flex;
+    @apply flex-col;
+    @apply gap-2;
+  }
+
+  #hero-image {
+    @apply coin-img;
+
+    /* flip animation */
+    @apply duration-1000;
+    @apply ease-in-out;
+  }
+
+  .coin-img {
+    @apply rounded-full;
+    @apply aspect-square;
+  }
+
+  .flip-buttons-fieldset {
+    @apply flex;
+    @apply w-full;
+    @apply flex-col;
+    @apply items-center;
+    @apply justify-between;
+    @apply space-y-4;
+  }
+
+  .flip-buttons-container {
+    @apply w-full;
+    @apply flex;
+    @apply flex-row;
+    @apply flex-wrap;
+    @apply gap-4;
+  }
+
+  .flip-button-base {
+    @apply block;
+    @apply p-2;
+    @apply text-3xl;
+    @apply text-center;
+    @apply uppercase;
+    @apply rounded-md;
+    @apply border-light-primary;
+    @apply dark:border-dark-primary;
+    @apply border-2;
+
+    /* grow animation */
+    @apply duration-200;
+    @apply ease-in-out;
+    @apply hover:scale-110;
+    @apply focus:scale-110;
+  }
+
+  .wallet-button {
+    @apply block;
+    @apply p-2;
+    @apply text-xl;
+    @apply rounded-md;
+    @apply border-light-primary;
+    @apply dark:border-dark-primary;
+    @apply border-2;
+    @apply text-light-faded;
+    @apply dark:text-dark-faded;
+
+    @apply enabled:text-light-primary;
+    @apply enabled:dark:text-dark-primary;
+    @apply enabled:hover:bg-light-hover;
+    @apply enabled:focus:bg-light-hover;
+    @apply enabled:dark:hover:bg-dark-hover;
+    @apply enabled:dark:focus:bg-dark-hover;
+  }
+
+  .flip-button {
+    @apply flip-button-base;
+    @apply bg-button-primary;
+    @apply whitespace-nowrap;
+  }
+
+  .flip-button-submit {
+    @apply flip-button-base;
+    @apply bg-button-complementary;
+  }
+
+  .flip-button-selected {
+    @apply border-8;
+  }
+
+  .footer-button {
+    @apply underline;
+  }
+
+  .close-dialog-button-img {
+    @apply aspect-square;
+    @apply w-4;
+  }
+
+  .icon-button {
+    @apply rounded-full;
+    @apply p-1;
+    @apply hover:bg-light-hover;
+    @apply focus:bg-light-hover;
+    @apply dark:hover:bg-dark-hover;
+    @apply dark:focus:bg-dark-hover;
+  }
+
+  /* tooltip stuff copied from https://www.w3schools.com/css/css_tooltip.asp */
+
+  .tooltip {
+    @apply relative;
+  }
+
+  .tooltip .tooltiptext {
+    @apply invisible;
+    @apply p-2;
+
+    @apply absolute;
+    @apply top-full;
+    /* idk why percentages no work */
+    @apply left-[-25px];
+
+    @apply bg-black;
+    /* white */
+    @apply text-dark-primary;
+    @apply rounded-md;
+  }
+
+  .tooltip:hover .tooltiptext {
+    @apply visible;
+  }
+
+  .tooltip:focus .tooltiptext {
+    @apply visible;
+  }
+
+  .tooltip .tooltiptext::after {
+    @apply content-["_"];
+    @apply absolute;
+    @apply bottom-full; /* At the top of the tooltip */
+    @apply left-1/2;
+    @apply ml-[-5px]; /* help center-x */
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+  }
+}
