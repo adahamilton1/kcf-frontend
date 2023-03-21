@@ -102,12 +102,17 @@ async function pollFlipsLoop() {
 
     // remove expired flips
     const now = Date.now();
-    removePendingFlips(
-      wallet.account,
-      getPendingFlips(wallet.account)
-        .filter(({ expiration }) => expiration < now)
-        .map(({ reqKey }) => reqKey)
-    );
+    const expiredFlipsReqKeys = getPendingFlips(wallet.account)
+      .filter(({ expiration }) => expiration < now)
+      .map(({ reqKey }) => reqKey);
+    for (const reqKey of expiredFlipsReqKeys) {
+      const dialog = spawnModal("error-dialog-template");
+      /** @type {HTMLParagraphElement} */
+      // @ts-ignore
+      const errP = dialog.getElementsByClassName("flip-error-msg")[0];
+      errP.innerText = `Transaction ${reqKey} expired`;
+    }
+    removePendingFlips(wallet.account, expiredFlipsReqKeys);
 
     if (getPendingFlips(wallet.account).length === 0) {
       break;
