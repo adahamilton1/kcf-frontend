@@ -1,6 +1,8 @@
-import { signWithDealer } from "@/js/lib/kcf/api";
-import { DEFAULT_CHAINWEB_ENDPOINT } from "@/js/lib/kcf/consts";
-import { sendTx } from "@/js/lib/kda/utils";
+// /api doesnt allow custom @/ paths
+
+import { signWithDealer } from "../js/lib/kcf/api";
+import { DEFAULT_CHAINWEB_ENDPOINT } from "../js/lib/kcf/consts";
+import { sendTx } from "../js/lib/kda/utils";
 
 export const config = {
   runtime: "edge",
