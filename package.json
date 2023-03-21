@@ -13,6 +13,7 @@
     "@html-eslint/eslint-plugin": "^0.16.0",
     "@html-eslint/parser": "^0.16.0",
     "@kadena/types": "^0.1.2",
+    "@vercel/node": "^2.9.13",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",

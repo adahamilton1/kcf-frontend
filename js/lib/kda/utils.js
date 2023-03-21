@@ -1,3 +1,9 @@
+/* eslint-disable no-restricted-imports */
+
+/** FUNCTIONS HERE ARE USED SERVER-SIDE, DO NOT USE ANY @/ LOCAL IMPORTS */
+
+import { DEFAULT_NETWORK_ID } from "../kcf/consts";
+
 /**
  * @typedef SigningRequest
  * @property {string} code
@@ -12,8 +18,6 @@
  * @property {string[]} extraSigners
  *
  */
-
-import { DEFAULT_NETWORK_ID } from "@/js/lib/kcf/consts";
 
 /**
  * @typedef DappCap
@@ -114,7 +118,7 @@ export async function localTx(baseUrl, tx) {
  * @param {import("@kadena/types/src/PactCommand").ICommand} tx
  * @return {Promise<import("@kadena/types/src/PactAPI").LocalResponse>}
  */
- export async function localTxFullUrl(localEndpointFullUrl, tx) {
+export async function localTxFullUrl(localEndpointFullUrl, tx) {
   const r = await fetch(localEndpointFullUrl, {
     method: "POST",
     body: JSON.stringify(tx),
@@ -143,7 +147,7 @@ export async function sendTx(baseUrl, tx) {
  * @param {import("@kadena/types/src/PactCommand").ICommand} tx
  * @return {Promise<import("@kadena/types/src/PactAPI").SendResponse>}
  */
- export async function sendTxFullUrl(sendEndpointFullUrl, tx) {
+export async function sendTxFullUrl(sendEndpointFullUrl, tx) {
   const r = await fetch(sendEndpointFullUrl, {
     method: "POST",
     body: JSON.stringify({ cmds: [tx] }),
