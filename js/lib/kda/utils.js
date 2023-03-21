@@ -104,7 +104,18 @@ export function mkPactApiHostFromBase(baseUrl, networkId, chainId) {
  * @return {Promise<import("@kadena/types/src/PactAPI").LocalResponse>}
  */
 export async function localTx(baseUrl, tx) {
-  const r = await fetch(`${mkPactApiHost(baseUrl, tx)}/local`, {
+  const resp = await localTxFullUrl(`${mkPactApiHost(baseUrl, tx)}/local`, tx);
+  return resp;
+}
+
+/**
+ *
+ * @param {string} localEndpointFullUrl the fully qualified /local endpoint e.g. https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/1/pact/api/v1/local
+ * @param {import("@kadena/types/src/PactCommand").ICommand} tx
+ * @return {Promise<import("@kadena/types/src/PactAPI").LocalResponse>}
+ */
+ export async function localTxFullUrl(localEndpointFullUrl, tx) {
+  const r = await fetch(localEndpointFullUrl, {
     method: "POST",
     body: JSON.stringify(tx),
     headers: {
@@ -122,7 +133,18 @@ export async function localTx(baseUrl, tx) {
  * @return {Promise<import("@kadena/types/src/PactAPI").SendResponse>}
  */
 export async function sendTx(baseUrl, tx) {
-  const r = await fetch(`${mkPactApiHost(baseUrl, tx)}/send`, {
+  const resp = await sendTxFullUrl(`${mkPactApiHost(baseUrl, tx)}/send`, tx);
+  return resp;
+}
+
+/**
+ *
+ * @param {string} sendEndpointFullUrl the fully qualified /send endpoint e.g. https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/1/pact/api/v1/send
+ * @param {import("@kadena/types/src/PactCommand").ICommand} tx
+ * @return {Promise<import("@kadena/types/src/PactAPI").SendResponse>}
+ */
+ export async function sendTxFullUrl(sendEndpointFullUrl, tx) {
+  const r = await fetch(sendEndpointFullUrl, {
     method: "POST",
     body: JSON.stringify({ cmds: [tx] }),
     headers: {

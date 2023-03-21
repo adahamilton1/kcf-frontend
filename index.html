@@ -271,6 +271,14 @@
           </section>
         </details>
         <details>
+          <summary class="cursor-pointer font-semibold">Why is my wallet unable to simulate the flip transaction?</summary>
+          <section class="mt-2 flex flex-col gap-2">
+            <p>
+              To prevent cheating, your signed transaction is first sent to our servers where it's signed by our dealer keypair before being broadcast to the network. This means you're missing our dealer's signature when you simulate the transaction, resulting in simulation failure. 
+            </p>
+          </section>
+        </details>
+        <details>
           <summary class="cursor-pointer font-semibold">
             What is the contract address?
           </summary>

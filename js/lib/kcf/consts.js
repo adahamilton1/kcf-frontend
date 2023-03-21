@@ -28,3 +28,5 @@ export const DEFAULT_META = {
   gasPrice: DEFAULT_GAS_PRICE,
   ttl: DEFAULT_TTL_S,
 };
+
+export const DEALER_PUBKEY = "1aed7ea4bddbc8fc667742034e84973a96ca695a8950c41ba3d4318245712e5a";

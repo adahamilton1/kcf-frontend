@@ -1,9 +1,8 @@
 import { getCurrentChoiceIsHeads } from "@/js/index/flipForm/choiceSelect";
 import { getCurrentAmount } from "@/js/index/flipForm/amountSelect";
-import { flipTx } from "@/js/lib/kcf/tx";
+import { flipLocalTx, flipSendTx, flipTx } from "@/js/lib/kcf/tx";
 import { getCurrentWallet } from "@/js/common/connectedWallet";
-import { localTx, sendTx, toExplorerLink } from "@/js/lib/kda/utils";
-import { DEFAULT_CHAINWEB_ENDPOINT } from "@/js/lib/kcf/consts";
+import { toExplorerLink } from "@/js/lib/kda/utils";
 import { spawnModal } from "@/js/index/dialogs/dialogTemplates";
 import { addPendingFlip } from "@/js/common/pendingFlips";
 import { startPollFlipsLoop } from "@/js/index/pollFlipsLoop";
@@ -86,13 +85,13 @@ async function onSubmit(event) {
   let reqKey;
   try {
     // /local to make sure sim works first
-    const localRes = await localTx(DEFAULT_CHAINWEB_ENDPOINT, toSend);
+    const localRes = await flipLocalTx(toSend);
     if (localRes.result.status === "failure") {
       throw new Error(JSON.stringify(localRes.result.error));
     }
     const {
       requestKeys: [reqKeyReturn],
-    } = await sendTx(DEFAULT_CHAINWEB_ENDPOINT, toSend);
+    } = await flipSendTx(toSend);
     reqKey = reqKeyReturn;
   } catch (e) {
     inProgressDialog.close();

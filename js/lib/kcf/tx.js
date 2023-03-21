@@ -1,5 +1,6 @@
 import { PactCommand } from "@kadena/client";
 import {
+  DEALER_PUBKEY,
   DEFAULT_META,
   DEFAULT_NETWORK_ID,
   FEE_ACCOUNT,
@@ -9,6 +10,7 @@ import {
   HOUSE_ACCOUNT,
   KCF_CHAIN_ID,
 } from "@/js/lib/kcf/consts";
+import { localTxFullUrl, sendTxFullUrl } from "@/js/lib/kda/utils";
 
 /**
  * @typedef FlipTxArgs
@@ -58,5 +60,17 @@ export function flipTx({
   cmd.addCap("coin.TRANSFER", pubKey, player, HOUSE_ACCOUNT, amount);
   // @ts-ignore
   cmd.addCap("coin.TRANSFER", pubKey, player, FEE_ACCOUNT, FEE_RATE * amount);
+  // @ts-ignore
+  cmd.addCap("free.kcf.DEALER", DEALER_PUBKEY);
   return cmd;
+}
+
+export async function flipLocalTx(tx) {
+  const resp = await localTxFullUrl("/api/local", tx);
+  return resp;
+}
+
+export async function flipSendTx(tx) {
+  const resp = await sendTxFullUrl("/api/send", tx);
+  return resp;
 }
