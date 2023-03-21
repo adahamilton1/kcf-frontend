@@ -4,6 +4,7 @@
     <!-- common -->
     <script type="module" src="/js/common/i18n.js"></script>
     <script type="module" src="/js/common/darkMode.js"></script>
+    <script type="module" src="/js/common/muted.js"></script>
 
     <!-- page-specific -->
     <script type="module" src="/js/index/index.js"></script>
@@ -12,6 +13,7 @@
       type="module"
       src="/js/index/header/darkModeToggleButton.js"
     ></script>
+    <script type="module" src="/js/index/header/muteToggleButton.js"></script>
     <script type="module" src="/js/index/flipForm/choiceSelect.js"></script>
     <script type="module" src="/js/index/flipForm/amountSelect.js"></script>
     <script type="module" src="/js/index/flipForm/submit.js"></script>
@@ -71,7 +73,6 @@
           <img
             data-dark-img-src="/images/icons/moon.svg"
             data-light-img-src="/images/icons/sun.svg"
-            id="dark-mode-toggle-button-icon"
             alt="dark mode toggle button"
             class="h-6 w-6"
           />
@@ -84,6 +85,15 @@
             class="h-6 w-6"
           />2
           <p class="tooltiptext">Live on mainnet chain 2</p>
+        </button>
+        <button id="mute-toggle-button" class="icon-button">
+          <img
+            id="mute-toggle-button-icon"
+            data-dark-img-src="/images/icons/unmuted_white.svg"
+            data-light-img-src="/images/icons/unmuted_black.svg"
+            alt="mute toggle button"
+            class="h-6 w-6"
+          />
         </button>
       </div>
       <div id="wallet-info-div">
@@ -271,10 +281,16 @@
           </section>
         </details>
         <details>
-          <summary class="cursor-pointer font-semibold">Why is my wallet unable to simulate the flip transaction?</summary>
+          <summary class="cursor-pointer font-semibold">
+            Why is my wallet unable to simulate the flip transaction?
+          </summary>
           <section class="mt-2 flex flex-col gap-2">
             <p>
-              To prevent cheating, your signed transaction is first sent to our servers where it's signed by our dealer keypair before being broadcast to the network. This means you're missing our dealer's signature when you simulate the transaction, resulting in simulation failure. 
+              To prevent cheating, your signed transaction is first sent to our
+              servers where it's signed by our dealer keypair before being
+              broadcast to the network. This means you're missing our dealer's
+              signature when you simulate the transaction, resulting in
+              simulation failure.
             </p>
           </section>
         </details>

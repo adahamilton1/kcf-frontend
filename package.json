@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@kadena/client": "^0.1.10",
-    "@kadena/cryptography-utils": "^0.1.4"
+    "@kadena/cryptography-utils": "^0.1.4",
+    "howler": "^2.2.3"
   }
 }

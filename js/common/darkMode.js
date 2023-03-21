@@ -56,7 +56,7 @@ export function setAndSaveIsDarkMode(isDarkMode) {
  */
 export function loadIsDarkModeOrDefault() {
   const maybeDarkMode = loadIsDarkMode();
-  if (!maybeDarkMode) {
+  if (maybeDarkMode === null) {
     return [DEFAULT_IS_DARK_MODE, true];
   }
   return [maybeDarkMode, false];

@@ -8,11 +8,18 @@ import { sleep } from "@/js/common/utils";
 import { spawnModal } from "@/js/index/dialogs/dialogTemplates";
 import { toExplorerLink } from "@/js/lib/kda/utils";
 import { attachOnClick as attachOnClickPlayAgainButton } from "@/js/index/playAgainButton";
+import { isCurrentlyMuted } from "@/js/common/muted";
+import { Howl } from "howler";
 
 const POLL_FLIPS_INTERVAL_MS = 10_000;
+/** Mainly to stagger SFX */
+const DIALOG_SPAWN_CD_MS = 1000;
 const STATE = {
   isRunning: false,
 };
+
+const WIN_SFX = new Howl({ src: ["/sfx/win.mp3"] });
+const LOSE_SFX = new Howl({ src: ["/sfx/lose.mp3"] });
 
 export function startPollFlipsLoop() {
   if (STATE.isRunning) {
@@ -60,6 +67,9 @@ async function pollFlipsLoop() {
         const playAgainButton =
           dialog.getElementsByClassName("play-again-button")[0];
         attachOnClickPlayAgainButton(playAgainButton);
+        if (!isCurrentlyMuted()) {
+          WIN_SFX.play();
+        }
       } else if (result === false) {
         dialog = spawnModal("lose-dialog-template");
         /** @type {HTMLSpanElement} */
@@ -71,6 +81,9 @@ async function pollFlipsLoop() {
         const playAgainButton =
           dialog.getElementsByClassName("play-again-button")[0];
         attachOnClickPlayAgainButton(playAgainButton);
+        if (!isCurrentlyMuted()) {
+          LOSE_SFX.play();
+        }
       } else {
         dialog = spawnModal("error-dialog-template");
         /** @type {HTMLParagraphElement} */
@@ -83,6 +96,8 @@ async function pollFlipsLoop() {
       const explorerLink =
         dialog.getElementsByClassName("view-on-explorer-a")[0];
       explorerLink.href = toExplorerLink(reqKey);
+
+      await sleep(DIALOG_SPAWN_CD_MS);
     }
 
     // remove expired flips

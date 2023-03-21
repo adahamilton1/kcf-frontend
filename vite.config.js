@@ -29,7 +29,7 @@ export default defineConfig({
     VitePWA({
       // default is to include all html, css, js and images in manifest,
       // so have to manually add missing images in
-      includeAssets: [`/favicon.ico`, `/images/*`],
+      includeAssets: [`/favicon.ico`, `/images/*`, "/sfx/*"],
       manifest: {
         name: "Kadena Coin Flip Reborn",
         short_name: "mwa",

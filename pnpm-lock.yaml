@@ -14,6 +14,7 @@ specifiers:
   eslint-import-resolver-jsconfig: ^1.1.0
   eslint-plugin-import: ^2.27.5
   eslint-plugin-simple-import-sort: ^10.0.0
+  howler: ^2.2.3
   husky: ^8.0.3
   lint-staged: ^13.1.2
   postcss: ^8.4.21
@@ -28,6 +29,7 @@ specifiers:
 dependencies:
   '@kadena/client': 0.1.10
   '@kadena/cryptography-utils': 0.1.4
+  howler: 2.2.3
 
 devDependencies:
   '@html-eslint/eslint-plugin': 0.16.0
@@ -5002,6 +5004,10 @@ packages:
   /hast-util-whitespace/2.0.1:
     resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
     dev: true
+
+  /howler/2.2.3:
+    resolution: {integrity: sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg==}
+    dev: false
 
   /http-cache-semantics/4.1.1:
     resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
