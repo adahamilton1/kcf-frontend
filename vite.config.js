@@ -32,7 +32,7 @@ export default defineConfig({
       includeAssets: [`/favicon.ico`, `/images/*`, "/sfx/*"],
       manifest: {
         name: "Kadena Coin Flip Reborn",
-        short_name: "mwa",
+        short_name: "KDA Coin Flip",
         description:
           "Kadena coin flip reborn: play a simple coin flip game with your KDA",
         icons: [
