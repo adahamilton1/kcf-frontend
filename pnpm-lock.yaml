@@ -26,6 +26,7 @@ specifiers:
   vercel: ^28.17.0
   vite: ^4.1.4
   vite-plugin-pwa: ^0.14.4
+  vite-plugin-sitemap: ^0.3.0
 
 dependencies:
   '@kadena/client': 0.1.10
@@ -55,6 +56,7 @@ devDependencies:
   vercel: 28.17.0
   vite: 4.1.4
   vite-plugin-pwa: 0.14.4_vite@4.1.4
+  vite-plugin-sitemap: 0.3.0
 
 packages:
 
@@ -8344,6 +8346,10 @@ packages:
     transitivePeerDependencies:
       - '@types/babel__core'
       - supports-color
+    dev: true
+
+  /vite-plugin-sitemap/0.3.0:
+    resolution: {integrity: sha512-ZGKbJDAfj7KG75LSCYPLof92/4MJBmy5OPll8trGWYx1M1ewXonAmdautKzHcYQARPy5u73zhuETNvIRzyviAw==}
     dev: true
 
   /vite/4.1.4:

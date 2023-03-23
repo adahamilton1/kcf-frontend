@@ -2,6 +2,7 @@
 // silence `'vite' should be listed in project's dependencies, not devDependencies`
 
 import glob from "glob";
+import Sitemap from "vite-plugin-sitemap";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -38,6 +39,9 @@ export default defineConfig({
     ],
   },
   plugins: [
+    Sitemap({
+      hostname: "https://www.kcf.wtf",
+    }),
     VitePWA({
       // default is to include all html, css, js and images in manifest,
       // so have to manually add missing images in
