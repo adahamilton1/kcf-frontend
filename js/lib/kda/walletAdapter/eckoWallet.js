@@ -1,12 +1,6 @@
-/**
- * TODO: ecko cant be supported right now because it always overwrites clist
- * into a single keypair so we cant do multisig.
- * https://github.com/eckoDAO-org/ecko-wallet/blob/c3a9ac1c3a125685c02221fc9493d94cb32cdc9c/public/app/background.js#L208
- */
-
 import { WalletAdapter } from "@/js/lib/kda/walletAdapter/walletAdapter";
 import { DEFAULT_NETWORK_ID } from "@/js/lib/kcf/consts";
-import { toLegacySigningRequest } from "@/js/lib/kda/utils";
+import { signerPubkeys } from "@/js/lib/kda/utils";
 
 export class EckoWallet extends WalletAdapter {
   /**
@@ -55,10 +49,8 @@ export class EckoWallet extends WalletAdapter {
    * @returns {Promise<boolean>}
    */
   static async isInstalled() {
-    // TODO: reenable when multisig works
-    return false;
     // @ts-ignore
-    // return Boolean(window.kadena && window.kadena.isKadena);
+    return Boolean(window.kadena && window.kadena.isKadena);
   }
 
   /**
@@ -68,20 +60,36 @@ export class EckoWallet extends WalletAdapter {
    */
   // eslint-disable-next-line class-methods-use-this
   async signCmd(cmd) {
+    const { cmd: cmdStr, hash } = cmd.createCommand();
     // @ts-ignore
     const { kadena } = window;
     const resp = await kadena.request({
-      method: "kda_requestSign",
+      method: "kda_requestQuickSign",
       data: {
         networkId: DEFAULT_NETWORK_ID,
-        signingCmd: toLegacySigningRequest(cmd),
+        commandSigDatas: [
+          {
+            sigs: signerPubkeys(cmd.signers).map((pubkey) => ({
+              pubKey: pubkey,
+              sig: null,
+            })),
+            cmd: cmdStr,
+          },
+        ],
       },
     });
     if (resp.status !== "success") {
       throw new Error(JSON.stringify(resp));
     }
-    // console.log("EW", JSON.parse(resp.signedCmd.cmd));
-    return resp.signedCmd;
+    // console.log("EW", resp);
+    const {
+      commandSigData: { sigs },
+    } = resp.quickSignData[0];
+    return {
+      cmd: cmdStr,
+      hash,
+      sigs: sigs.filter(({ sig }) => Boolean(sig)).map(({ sig }) => ({ sig })),
+    };
   }
 }
 
