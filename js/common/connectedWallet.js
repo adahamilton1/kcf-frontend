@@ -1,7 +1,8 @@
 import { ChainweaverWallet } from "@/js/lib/kda/walletAdapter/chainweaverWallet";
+import { EckoWallet } from "@/js/lib/kda/walletAdapter/eckoWallet";
 
 /**
- * @typedef {"chainweaver"} WalletType
+ * @typedef {"chainweaver" | "eckowallet"} WalletType
  */
 
 /**
@@ -28,7 +29,10 @@ function determineWalletType(wallet) {
   if (wallet instanceof ChainweaverWallet) {
     return "chainweaver";
   }
-  throw new Error(`cant determined wallet type for ${wallet}`);
+  if (wallet instanceof EckoWallet) {
+    return "eckowallet";
+  }
+  throw new Error(`cant determine wallet type for ${wallet}`);
 }
 
 /**
@@ -36,6 +40,7 @@ function determineWalletType(wallet) {
  */
 const WALLET_TYPE_TO_CLASS = {
   chainweaver: ChainweaverWallet,
+  eckowallet: EckoWallet,
 };
 
 export function getCurrentWallet() {
@@ -61,10 +66,11 @@ function saveConnectedWallet() {
 
 /**
  *
+ * @param {typeof import("@/js/lib/kda/walletAdapter/walletAdapter").WalletAdapter}  cls
  * @param {import("@/js/lib/kda/walletAdapter/walletAdapter").ConnectWalletArgs} args
  */
-export async function connectChainweaverWallet(args) {
-  CONNECTED_WALLET.w = await ChainweaverWallet.connect(args);
+export async function connectWallet(cls, args) {
+  CONNECTED_WALLET.w = await cls.connect(args);
   saveConnectedWallet();
 }
 
@@ -93,6 +99,7 @@ export function disconnectWallet() {
   if (!CONNECTED_WALLET.w) {
     throw new Error("no wallet connected");
   }
+  CONNECTED_WALLET.w.disconnect();
   CONNECTED_WALLET.w = null;
   window.localStorage.removeItem(CONNECTED_WALLET_LOCALSTORAGE_KEY);
 }

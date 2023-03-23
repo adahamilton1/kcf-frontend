@@ -6,6 +6,8 @@
  * @property {string} [pubKey]
  */
 
+import { UnimplementedError } from "@/js/common/errs";
+
 export class WalletAdapter {
   // idk why eslint cant parse class field declarations
 
@@ -33,7 +35,22 @@ export class WalletAdapter {
    * @throws if connection failed
    */
   static async connect(_args) {
-    throw new Error("unimplemented");
+    throw new UnimplementedError();
+  }
+
+  /**
+   * @returns {Promise<void>}
+   */
+  // eslint-disable-next-line class-methods-use-this
+  async disconnect() {
+    throw new UnimplementedError();
+  }
+
+  /**
+   * @returns {Promise<boolean>}
+   */
+  static async isInstalled() {
+    throw new UnimplementedError();
   }
 
   /**
@@ -43,6 +60,6 @@ export class WalletAdapter {
    */
   // eslint-disable-next-line class-methods-use-this
   async signCmd(_cmd) {
-    throw new Error("unimplemented");
+    throw new UnimplementedError();
   }
 }

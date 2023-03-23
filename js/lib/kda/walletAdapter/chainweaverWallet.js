@@ -5,6 +5,8 @@ export class NotKAccountError extends Error {}
 
 export class InsufficientAccountInfo extends Error {}
 
+const SIGNING_ENDPOINT = "http://localhost:9467/v1/sign";
+
 export class ChainweaverWallet extends WalletAdapter {
   /**
    * @override
@@ -32,13 +34,40 @@ export class ChainweaverWallet extends WalletAdapter {
 
   /**
    * @override
+   * @returns {Promise<void>}
+   */
+  // eslint-disable-next-line class-methods-use-this, no-empty-function
+  async disconnect() {}
+
+  /**
+   *
+   * @override
+   * @returns {Promise<boolean>}
+   */
+  static async isInstalled() {
+    return true;
+    /*
+    try {
+      // this will still output HTTP 405 on console
+      // but will not throw
+      await fetch(SIGNING_ENDPOINT);
+      return true;
+    } catch (e) {
+      // ECONNREFUSED is thrown here
+      return false;
+    }
+    */
+  }
+
+  /**
+   * @override
    * @param {import("@kadena/client").PactCommand} cmd
    * @returns {Promise<import("@kadena/types/src/PactCommand").ICommand>} the signature for `cmd` by pubKey
    */
   // eslint-disable-next-line class-methods-use-this
   async signCmd(cmd) {
     // quicksign doesnt seem to work rn
-    const r = await fetch("http://localhost:9467/v1/sign", {
+    const r = await fetch(SIGNING_ENDPOINT, {
       method: "POST",
       body: JSON.stringify(toChainweaverSigningRequest(cmd)),
       headers: {

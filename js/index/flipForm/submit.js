@@ -123,7 +123,7 @@ function onError(e, reqKey) {
   /** @type {HTMLParagraphElement} */
   // @ts-ignore
   const errP = dialog.getElementsByClassName("flip-error-msg")[0];
-  errP.innerText = e.message;
+  errP.innerText = e.message ?? JSON.stringify(e);
   /** @type {HTMLAnchorElement} */
   // @ts-ignore
   const viewOnExplorerLink =

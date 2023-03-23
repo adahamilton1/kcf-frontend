@@ -2,7 +2,7 @@
 
 /** FUNCTIONS HERE ARE USED SERVER-SIDE, DO NOT USE ANY @/ LOCAL IMPORTS */
 
-import { DEFAULT_NETWORK_ID } from "../kcf/consts";
+import { DEFAULT_NETWORK_ID, DEFAULT_NETWORK_VERSION } from "../kcf/consts";
 
 /**
  * @typedef SigningRequest
@@ -20,6 +20,30 @@ import { DEFAULT_NETWORK_ID } from "../kcf/consts";
  */
 
 /**
+ * This format is used by eckoWALLET, zelcore
+ * Differences with SigningRequest:
+ * - code -> pactCode
+ * - data -> envData
+ * - no `extraSigners`, only one `signingPubkey`
+ * - +networkId
+ * - +networkVersion
+ *
+ * @typedef LegacySigningRequest
+ * @property {string} pactCode
+ * @property {Record<string, unknown>} envData
+ * @property {DappCap[]} caps
+ * @property {string} nonce
+ * @property {import("@kadena/client").PactCommand["publicMeta"]["chainId"]} chainId
+ * @property {number} gasLimit
+ * @property {number} gasPrice
+ * @property {number} ttl
+ * @property {string} sender
+ * @property {string} signingPubkey
+ * @property {import("@kadena/types").NetworkId} networkId
+ * @property {string} networkVersion
+ */
+
+/**
  * @typedef DappCap
  * @property {string} role
  * @property {string} description
@@ -33,6 +57,18 @@ import { DEFAULT_NETWORK_ID } from "../kcf/consts";
  */
 
 /**
+ * @param {import("@kadena/client").IPactCommand["signers"]} signers
+ * @returns {[string, string[]]}
+ */
+function signerPubkeys(signers) {
+  const [sender, ...extraSigners] = signers;
+  const extraSignersPubkeys = [
+    ...new Set(extraSigners.map(({ pubKey }) => pubKey)),
+  ];
+  return [sender.pubKey, extraSignersPubkeys];
+}
+
+/**
  *
  * @param {import("@kadena/client").IPactCommand} _unnamed
  * @return {SigningRequest}
@@ -43,7 +79,7 @@ export function toChainweaverSigningRequest({
   publicMeta: { chainId, gasLimit, gasPrice, ttl, sender },
   signers,
 }) {
-  const [_sender, ...extraSigners] = signers;
+  const [_sender, extraSigners] = signerPubkeys(signers);
   return {
     code,
     data,
@@ -54,7 +90,36 @@ export function toChainweaverSigningRequest({
     gasPrice,
     ttl,
     sender,
-    extraSigners: extraSigners.map(({ pubKey }) => pubKey),
+    extraSigners,
+  };
+}
+
+/**
+ *
+ * @param {import("@kadena/client").IPactCommand} _unnamed
+ * @return {LegacySigningRequest}
+ */
+export function toLegacySigningRequest({
+  code,
+  data,
+  publicMeta: { chainId, gasLimit, gasPrice, ttl, sender },
+  signers,
+}) {
+  // TODO: find some way to use extraSigners
+  const [signingPubkey] = signerPubkeys(signers);
+  return {
+    pactCode: code,
+    envData: data,
+    caps: signers.flatMap(({ caps }) => caps.map(toDappCapps)),
+    nonce: Date.now().toString(),
+    chainId,
+    gasLimit,
+    gasPrice,
+    ttl,
+    sender,
+    signingPubkey,
+    networkId: DEFAULT_NETWORK_ID,
+    networkVersion: DEFAULT_NETWORK_VERSION,
   };
 }
 

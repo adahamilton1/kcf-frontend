@@ -25,6 +25,8 @@ export default async (req, resp) => {
   const cmd = req.body;
   verifyCmd(cmd);
   signWithDealer(cmd);
+  // `Error from API Route /api/local: SyntaxError: Unexpected token V in JSON at position 0`
+  // probably means Validation failed: Invalid command: Number of sig(s) does not match number of signer(s)
   const res = await localTx(DEFAULT_CHAINWEB_ENDPOINT, cmd);
   resp.status(200).json(res);
 };

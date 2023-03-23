@@ -21,6 +21,8 @@ export const KCF_CHAIN_ID = IS_MAINNET ? "2" : "1";
 
 export const DEFAULT_NETWORK_ID = IS_MAINNET ? "mainnet01" : "testnet04";
 
+export const DEFAULT_NETWORK_VERSION = "0.0";
+
 export const DEFAULT_CHAINWEB_ENDPOINT = IS_MAINNET
   ? "https://api.chainweb.com"
   : "https://api.testnet.chainweb.com";

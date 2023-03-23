@@ -55,6 +55,9 @@ export function flipTx({
     },
     networkId ?? DEFAULT_NETWORK_ID
   );
+  // NB: LegacySigningRequest only allows one signer,
+  // we are assuming signers[0] is user so make sure these caps
+  // are added first before DEALER
   cmd.addCap("coin.GAS", pubKey);
   // @ts-ignore
   cmd.addCap("coin.TRANSFER", pubKey, player, HOUSE_ACCOUNT, amount);
