@@ -1,4 +1,4 @@
-import { ChainweaverWallet } from "@/js/lib/kda/walletAdapter/chainweaverWallet";
+import { ChainweaverQuickSignWallet } from "@/js/lib/kda/walletAdapter/chainweaverQuickSignWallet";
 import { EckoWallet } from "@/js/lib/kda/walletAdapter/eckoWallet";
 
 /**
@@ -26,7 +26,7 @@ const CONNECTED_WALLET = {
  * @returns {WalletType}
  */
 function determineWalletType(wallet) {
-  if (wallet instanceof ChainweaverWallet) {
+  if (wallet instanceof ChainweaverQuickSignWallet) {
     return "chainweaver";
   }
   if (wallet instanceof EckoWallet) {
@@ -39,7 +39,7 @@ function determineWalletType(wallet) {
  * @type {Record<WalletType, typeof import("@/js/lib/kda/walletAdapter/walletAdapter").WalletAdapter>}
  */
 const WALLET_TYPE_TO_CLASS = {
-  chainweaver: ChainweaverWallet,
+  chainweaver: ChainweaverQuickSignWallet,
   eckowallet: EckoWallet,
 };
 

@@ -58,14 +58,20 @@ import { DEFAULT_NETWORK_ID, DEFAULT_NETWORK_VERSION } from "../kcf/consts";
 
 /**
  * @param {import("@kadena/client").IPactCommand["signers"]} signers
- * @returns {[string, string[]]}
+ * @returns {string[]} first pubkey is first pubkey in signers
  */
-function signerPubkeys(signers) {
+export function signerPubkeys(signers) {
   const [sender, ...extraSigners] = signers;
-  const extraSignersPubkeys = [
-    ...new Set(extraSigners.map(({ pubKey }) => pubKey)),
-  ];
-  return [sender.pubKey, extraSignersPubkeys];
+  const res = [...new Set(extraSigners.map(({ pubKey }) => pubKey))];
+  const i = res.indexOf(sender.pubKey);
+  if (i === -1) {
+    res.unshift(sender.pubKey);
+  } else if (i !== 0) {
+    // eslint-disable-next-line prefer-destructuring
+    res[i] = res[0];
+    res[0] = sender.pubKey;
+  }
+  return res;
 }
 
 /**
@@ -79,7 +85,7 @@ export function toChainweaverSigningRequest({
   publicMeta: { chainId, gasLimit, gasPrice, ttl, sender },
   signers,
 }) {
-  const [_sender, extraSigners] = signerPubkeys(signers);
+  const [_sender, ...extraSigners] = signerPubkeys(signers);
   return {
     code,
     data,

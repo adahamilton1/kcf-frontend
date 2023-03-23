@@ -1,9 +1,7 @@
 import { connectWallet } from "@/js/common/connectedWallet";
-import {
-  ChainweaverWallet,
-  NotKAccountError,
-} from "@/js/lib/kda/walletAdapter/chainweaverWallet";
+import { ChainweaverQuickSignWallet } from "@/js/lib/kda/walletAdapter/chainweaverQuickSignWallet";
 import { onWalletChanged } from "@/js/index/onWallet";
+import { NotKAccountError } from "@/js/lib/kda/walletAdapter/chainweaverWallet";
 
 /**
  *
@@ -16,7 +14,7 @@ async function onSubmit(event) {
   const input = document.getElementById("chainweaver-address-input");
   const account = input.value;
   try {
-    await connectWallet(ChainweaverWallet, { account });
+    await connectWallet(ChainweaverQuickSignWallet, { account });
     onWalletChanged();
     /** @type {HTMLDialogElement} */
     // @ts-ignore

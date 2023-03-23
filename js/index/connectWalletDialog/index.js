@@ -1,6 +1,6 @@
 import { connectWallet } from "@/js/common/connectedWallet";
 import { ATTR_ONLY_OBSERVER_OPTIONS } from "@/js/common/consts";
-import { ChainweaverWallet } from "@/js/lib/kda/walletAdapter/chainweaverWallet";
+import { ChainweaverQuickSignWallet } from "@/js/lib/kda/walletAdapter/chainweaverQuickSignWallet";
 import { EckoWallet } from "@/js/lib/kda/walletAdapter/eckoWallet";
 import { onWalletChanged } from "@/js/index/onWallet";
 import { spawnModal } from "@/js/index/dialogs/dialogTemplates";
@@ -11,7 +11,7 @@ const ID = "connect-wallet-dialog";
  * @type {Record<string, typeof import("@/js/lib/kda/walletAdapter/walletAdapter").WalletAdapter>}
  */
 const BUTTON_ID_TO_WALLET = {
-  "connect-chainweaver-button": ChainweaverWallet,
+  "connect-chainweaver-button": ChainweaverQuickSignWallet,
   "connect-eckowallet-button": EckoWallet,
 };
 
@@ -88,7 +88,7 @@ function onPageParsed() {
     /** @type {HTMLButtonElement} */
     // @ts-ignore
     const btn = document.getElementById(btnId);
-    if (cls !== ChainweaverWallet) {
+    if (cls !== ChainweaverQuickSignWallet) {
       btn.onclick = () => simpleConnectWallet(cls);
     }
   }
