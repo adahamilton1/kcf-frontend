@@ -156,10 +156,6 @@
     @apply border-8;
   }
 
-  .footer-button {
-    @apply underline;
-  }
-
   .close-dialog-button-img {
     @apply aspect-square;
     @apply w-4;
