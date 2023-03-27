@@ -41,7 +41,7 @@ function onWalletConnected(currentWallet) {
   // @ts-ignore
   const flipSubmitBtn = document.getElementById(FLIP_SUBMIT_BUTTON_ID);
   // TODO: I18N
-  flipSubmitBtn.innerText = "double or nothing";
+  flipSubmitBtn.innerText = "contract paused"; // double or nothing
   startPollFlipsLoop();
 }
 
