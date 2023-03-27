@@ -1,8 +1,10 @@
 // /api doesnt allow custom @/ paths
 
+/*
 import { signWithDealer, verifyCmd } from "../js/lib/kcf/api";
 import { DEFAULT_CHAINWEB_ENDPOINT } from "../js/lib/kcf/consts";
 import { sendTx } from "../js/lib/kda/utils";
+*/
 
 /*
 // TODO: re-enable edge when nodejs buffer and crypto is supported by vercel edge
@@ -21,7 +23,9 @@ export default async (req, resp) => {
     resp.status(400).send("only POST allowed");
     return;
   }
+  resp.status(503).send("paused");
   /** @type {{ cmds: [import("@kadena/types").ICommand] }} */
+  /*
   const {
     cmds: [cmd],
   } = req.body;
@@ -29,4 +33,5 @@ export default async (req, resp) => {
   signWithDealer(cmd);
   const res = await sendTx(DEFAULT_CHAINWEB_ENDPOINT, cmd);
   resp.status(200).json(res);
+  */
 };
