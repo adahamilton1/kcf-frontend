@@ -54,8 +54,8 @@ module.exports = {
       button: {
         /* hot pink */
         primary: "#ec058e",
-        /* green */
-        complementary: "#05ec63",
+        /* green, slightly darker than true complement */
+        complementary: "#00da51",
       },
     },
     borderColor: {

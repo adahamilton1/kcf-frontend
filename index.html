@@ -17,6 +17,7 @@
     <script type="module" src="/js/index/flipForm/choiceSelect.js"></script>
     <script type="module" src="/js/index/flipForm/amountSelect.js"></script>
     <script type="module" src="/js/index/flipForm/submit.js"></script>
+    <script type="module" src="/js/index/footer/instructionsButton.js"></script>
     <script type="module" src="/js/index/footer/faqButton.js"></script>
     <script
       type="module"
@@ -234,11 +235,19 @@
       </form>
     </main>
     <footer class="flex w-full items-center justify-center gap-8">
+      <button id="instructions-button" type="button" class="icon-button">
+        <img
+          data-dark-img-src="/images/icons/instructions-dark.svg"
+          data-light-img-src="/images/icons/instructions-light.svg"
+          class="h-10 w-10"
+          alt="How to play"
+        />
+      </button>
       <button id="faq-button" type="button" class="icon-button">
         <img
           data-dark-img-src="/images/icons/help-dark.svg"
           data-light-img-src="/images/icons/help-light.svg"
-          class="h-11 w-11"
+          class="h-10 w-10"
           alt="FAQ"
         />
       </button>
@@ -255,21 +264,53 @@
           alt="Twitter"
         />
       </a>
-      <a
-        href="https://discord.gg/ZzJpTCyG3c"
-        rel="external"
-        target="_blank"
-        class="icon-button block"
-      >
-        <img
-          data-dark-img-src="/images/icons/discord-dark.svg"
-          data-light-img-src="/images/icons/discord-light.svg"
-          class="h-10 w-10"
-          alt="Discord"
-        />
-      </a>
+      <!-- No discord for now
+                <a
+                rel="external"
+                target="_blank"
+                class="icon-button block"
+                >
+                <img
+                data-dark-img-src="/images/icons/discord-dark.svg"
+                data-light-img-src="/images/icons/discord-light.svg"
+                class="h-10 w-10"
+                alt="Discord"
+                />
+                </a>
+            -->
     </footer>
     <!-- dialogs -->
+    <dialog id="instructions-dialog">
+      <section class="dialog-container">
+        <header class="flex items-center">
+          <h2 class="flex-1">How To Play</h2>
+          <button type="button">
+            <img
+              data-dark-img-src="/images/icons/close_white.svg"
+              data-light-img-src="/images/icons/close_black.svg"
+              alt="close modal button"
+              class="close-dialog-button-img"
+            />
+          </button>
+        </header>
+        <ol class="list-inside list-decimal">
+          <li>Connect your Kadena wallet with funds on mainnet chain 2</li>
+          <li>Pick either heads or tails</li>
+          <li>Select your desired bet amount</li>
+          <li>Click "DOUBLE OR NOTHING"</li>
+          <li>Sign the transaction in your wallet</li>
+          <li>
+            After signing, the transaction will be posted to the network to be
+            mined.
+          </li>
+          <li>
+            Once the transaction is mined, the results will be appear on-screen
+            and you will have received any payouts automatically. This usually
+            takes around 2 minutes.
+          </li>
+        </ol>
+      </section>
+    </dialog>
     <dialog id="faq-dialog">
       <section class="dialog-container">
         <header class="flex items-center">
@@ -286,7 +327,7 @@
         <details>
           <!-- prettier-ignore to preserve leading whitespace -->
           <!-- prettier-ignore -->
-          <summary class="cursor-pointer font-semibold"> What is this?</summary>
+          <summary class="cursor-pointer font-semibold"> What is Kadena Coin Flip Reborn?</summary>
           <section class="mt-2 flex flex-col gap-2">
             <p>
               Kadena Coin Flip Reborn is a place for you to play double or
