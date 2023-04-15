@@ -34,13 +34,10 @@ function onDialogAttrMutation(mutationRecords) {
 function onOpen(dialog) {
   const clickToCloseWindowListener = createClickToCloseWindowListener(dialog);
   window.addEventListener("click", clickToCloseWindowListener);
-  dialog.querySelectorAll("img.close-dialog-button-img").forEach((img) => {
-    const parentButton = img.parentElement;
-    if (!parentButton) {
-      throw new Error(`img ${img} has no containing button`);
-    }
-    parentButton.onclick = closeButtonOnClickListener;
-  });
+  /** @type {HTMLButtonElement} */
+  // @ts-ignore
+  const closeBtn = dialog.querySelector(`button[aria-label="close"]`);
+  closeBtn.onclick = closeButtonOnClickListener;
   dialog.onclose = createOnCloseListener(clickToCloseWindowListener);
 }
 

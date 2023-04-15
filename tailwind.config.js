@@ -51,6 +51,7 @@ module.exports = {
         hover: "#1e2639",
       },
       black: "#000000",
+      transparent: "transparent",
       button: {
         /* hot pink */
         primary: "#ec058e",

@@ -1,6 +1,7 @@
 {
   "name": "my-web-app",
   "version": "0.0.0",
+  "private": "true",
   "scripts": {
     "dev": "vite",
     "vercel-dev": "vercel dev",
@@ -13,6 +14,7 @@
     "@html-eslint/eslint-plugin": "^0.16.0",
     "@html-eslint/parser": "^0.16.0",
     "@kadena/types": "^0.1.2",
+    "@kcf/kda-wallet-base": "^1.1.0",
     "@vercel/node": "^2.9.13",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.34.0",
@@ -36,7 +38,11 @@
   },
   "dependencies": {
     "@kadena/client": "^0.1.10",
-    "@kadena/cryptography-utils": "^0.1.4",
-    "howler": "^2.2.3"
+    "@kcf/kda-wallet-chainweaver-connect-button": "^1.0.0",
+    "@kcf/kda-wallet-connect-dialog": "^1.0.0",
+    "@kcf/kda-wallet-eckowallet-connect-button": "^1.0.0",
+    "@kcf/kda-wallet-walletconnect-connect-button": "^1.0.0",
+    "@kcf/kda-wallet-web-components-base": "^1.0.0",
+    "@kcf/kda-wallet-zelcore-connect-button": "^1.0.0"
   }
 }

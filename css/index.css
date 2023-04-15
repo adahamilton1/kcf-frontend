@@ -27,6 +27,11 @@
     @apply text-2xl;
   }
 
+  /* required for @kcf web components */
+  h6 {
+    @apply text-xl;
+  }
+
   legend {
     @apply w-full;
     @apply text-center;
@@ -62,6 +67,17 @@
     @apply border-2;
   }
 
+  input {
+    @apply bg-transparent;
+    @apply rounded-md;
+    @apply border-light-primary;
+    @apply dark:border-dark-primary;
+    @apply border-2;
+    @apply p-1;
+  }
+}
+
+@layer components {
   /* need additional container within dialog because 
    * you cant set display: property of dialog or it'll show */
   .dialog-container {
@@ -72,6 +88,50 @@
     @apply flex;
     @apply flex-col;
     @apply gap-2;
+  }
+
+  kda-wallet-connect-dialog > dialog > section,
+  .kda-wallet-chainweaver-connect-dialog > section,
+  .kda-wallet-chainweaver-connect-dialog form {
+    @apply dialog-container;
+  }
+
+  .kda-wallet-chainweaver-connect-dialog input {
+    @apply w-full;
+  }
+
+  kda-wallet-connect-dialog > dialog > section > header,
+  .kda-wallet-chainweaver-connect-dialog > section > header {
+    @apply flex;
+    @apply gap-2;
+    @apply items-center;
+    @apply justify-between;
+    @apply w-full;
+  }
+
+  .wallet-button,
+  kda-wallet-chainweaver-connect-button > button,
+  kda-wallet-eckowallet-connect-button > button,
+  kda-wallet-walletconnect-connect-button > button,
+  kda-wallet-zelcore-connect-button > button,
+  .kda-wallet-chainweaver-connect-dialog form button {
+    @apply block;
+    @apply w-full;
+    @apply p-2;
+    @apply text-xl;
+    @apply rounded-md;
+    @apply border-light-primary;
+    @apply dark:border-dark-primary;
+    @apply border-2;
+    @apply text-light-faded;
+    @apply dark:text-dark-faded;
+
+    @apply enabled:text-light-primary;
+    @apply enabled:dark:text-dark-primary;
+    @apply enabled:hover:bg-light-hover;
+    @apply enabled:focus:bg-light-hover;
+    @apply enabled:dark:hover:bg-dark-hover;
+    @apply enabled:dark:focus:bg-dark-hover;
   }
 
   #hero-image {
@@ -120,25 +180,6 @@
     @apply ease-in-out;
     @apply hover:scale-110;
     @apply focus:scale-110;
-  }
-
-  .wallet-button {
-    @apply block;
-    @apply p-2;
-    @apply text-xl;
-    @apply rounded-md;
-    @apply border-light-primary;
-    @apply dark:border-dark-primary;
-    @apply border-2;
-    @apply text-light-faded;
-    @apply dark:text-dark-faded;
-
-    @apply enabled:text-light-primary;
-    @apply enabled:dark:text-dark-primary;
-    @apply enabled:hover:bg-light-hover;
-    @apply enabled:focus:bg-light-hover;
-    @apply enabled:dark:hover:bg-dark-hover;
-    @apply enabled:dark:focus:bg-dark-hover;
   }
 
   .flip-button {

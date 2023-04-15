@@ -47,10 +47,10 @@ export default defineConfig({
       // so have to manually add missing images in
       includeAssets: [`/favicon.ico`, `/images/*`, "/sfx/*"],
       manifest: {
-        name: "Kadena Coin Flip Reborn",
-        short_name: "KDA Coin Flip",
+        name: "KCF Transactor",
+        short_name: "KCF",
         description:
-          "Kadena coin flip reborn: play a simple coin flip game with your KDA",
+          "A simple Kadena transaction execution interface for fast feedback and experimentation",
         icons: [
           {
             src: `/images/logo/logo_512x512.png`,
@@ -71,9 +71,9 @@ export default defineConfig({
         ],
         start_url: `/index.html`,
         display: "fullscreen",
-        // TODO: USE ACTUAL THEME COLORS
-        theme_color: "#FFFFFF",
-        background_color: "#FFFFFF",
+        // hot pink
+        theme_color: "#ec058e",
+        background_color: "#ec058e",
       },
     }),
   ],

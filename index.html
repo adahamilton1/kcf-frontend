@@ -2,9 +2,7 @@
 <html lang="en">
   <head>
     <!-- common -->
-    <script type="module" src="/js/common/i18n.js"></script>
     <script type="module" src="/js/common/darkMode.js"></script>
-    <script type="module" src="/js/common/muted.js"></script>
 
     <!-- page-specific -->
     <script type="module" src="/js/index/index.js"></script>
@@ -13,26 +11,12 @@
       type="module"
       src="/js/index/header/darkModeToggleButton.js"
     ></script>
-    <script type="module" src="/js/index/header/muteToggleButton.js"></script>
-    <script type="module" src="/js/index/flipForm/choiceSelect.js"></script>
-    <script type="module" src="/js/index/flipForm/amountSelect.js"></script>
-    <script type="module" src="/js/index/flipForm/submit.js"></script>
     <script type="module" src="/js/index/footer/instructionsButton.js"></script>
     <script type="module" src="/js/index/footer/faqButton.js"></script>
     <script
       type="module"
       src="/js/index/header/walletInfoDiv/index.js"
     ></script>
-    <script type="module" src="/js/index/connectWalletDialog/index.js"></script>
-    <script
-      type="module"
-      src="/js/index/connectWalletDialog/connectChainweaverButton.js"
-    ></script>
-    <script
-      type="module"
-      src="/js/index/connectChainweaverDialog/index.js"
-    ></script>
-    <script type="module" src="/js/index/pollFlipsLoop.js"></script>
 
     <!-- css -->
     <link href="css/index.css" rel="stylesheet" />
@@ -59,36 +43,36 @@
     <!-- SEO -->
     <meta
       name="description"
-      content="The #1 place on Kadena to play double or nothing with your KDA"
+      content="A simple Kadena transaction execution interface for fast feedback and experimentation"
     />
     <!-- meta keywords is useless -->
     <!-- twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:url" content="https://www.kcf.wtf" />
-    <meta name="twitter:title" content="Kadena Coin Flip Reborn" />
+    <meta name="twitter:title" content="KCF Transactor" />
     <meta
       name="twitter:description"
-      content="The #1 place on Kadena to play double or nothing with your KDA"
+      content="A simple Kadena transaction execution interface for fast feedback and experimentation"
     />
     <meta name="twitter:image" content="/images/og.png" />
     <meta name="twitter:creator" content="@kcfreborn" />
     <!-- facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.kcf.wtf" />
-    <meta property="og:title" content="Kadena Coin Flip Reborn" />
+    <meta property="og:title" content="KCF Transactor" />
     <meta
       property="og:description"
-      content="The #1 place on Kadena to play double or nothing with your KDA"
+      content="A simple Kadena transaction execution interface for fast feedback and experimentation"
     />
     <meta property="og:image" content="/images/og.png" />
-    <meta property="og:site_name" content="Kadena Coin Flip Reborn" />
+    <meta property="og:site_name" content="KCF Transactor" />
     <!-- needed for media queries -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, minimum-scale=1"
     />
 
-    <title data-i18n-key="landing.title">Kadena Coin Flip Reborn</title>
+    <title>KCF Transactor</title>
   </head>
   <body class="mx-auto flex max-w-xl flex-col items-center gap-4 p-4">
     <!-- style: class should always be last attr -->
@@ -99,24 +83,6 @@
             data-dark-img-src="/images/icons/moon.svg"
             data-light-img-src="/images/icons/sun.svg"
             alt="dark mode toggle button"
-            class="h-6 w-6"
-          />
-        </button>
-        <button class="tooltip icon-button flex items-center gap-1">
-          <img
-            data-dark-img-src="/images/icons/chain_white.svg"
-            data-light-img-src="/images/icons/chain_black.svg"
-            alt="chain"
-            class="h-6 w-6"
-          />2
-          <p class="tooltiptext">Live on mainnet chain 2</p>
-        </button>
-        <button id="mute-toggle-button" class="icon-button">
-          <img
-            id="mute-toggle-button-icon"
-            data-dark-img-src="/images/icons/unmuted_white.svg"
-            data-light-img-src="/images/icons/unmuted_black.svg"
-            alt="mute toggle button"
             class="h-6 w-6"
           />
         </button>
@@ -147,92 +113,9 @@
       </div>
     </nav>
     <main class="flex w-full flex-col items-center gap-y-4">
-      <h1 data-i18n-key="landing.h1" class="self-center text-center">
-        Kadena Coin Flip
-      </h1>
-      <img
-        id="hero-image"
-        src="/images/logo/logo.svg"
-        alt="a large coin"
-        tabindex="0"
-      />
-      <form id="flip-form" class="flex w-full flex-col gap-y-4">
-        <fieldset
-          id="choice-fieldset"
-          data-choice-is-heads="1"
-          class="flip-buttons-fieldset"
-        >
-          <legend class="uppercase">I choose</legend>
-          <div class="flip-buttons-container">
-            <button value="1" type="button" class="flip-button flex-1">
-              heads
-            </button>
-            <button value="0" type="button" class="flip-button flex-1">
-              tails
-            </button>
-          </div>
-        </fieldset>
-        <fieldset
-          id="amount-fieldset"
-          data-amount="1"
-          class="flip-buttons-fieldset"
-        >
-          <legend class="uppercase">I bet</legend>
-          <div class="flip-buttons-container">
-            <button
-              value="1"
-              type="button"
-              class="flip-button shrink grow basis-1/4"
-            >
-              1 KDA
-            </button>
-            <button
-              value="2"
-              type="button"
-              class="flip-button shrink grow basis-1/4"
-            >
-              2 KDA
-            </button>
-            <button
-              value="5"
-              type="button"
-              class="flip-button shrink grow basis-1/4"
-            >
-              5 KDA
-            </button>
-            <button
-              value="10"
-              type="button"
-              class="flip-button shrink grow basis-1/4"
-            >
-              10 KDA
-            </button>
-            <button
-              value="20"
-              type="button"
-              class="flip-button shrink grow basis-1/4"
-            >
-              20 KDA
-            </button>
-            <button
-              value="50"
-              type="button"
-              class="flip-button shrink grow basis-1/4"
-            >
-              50 KDA
-            </button>
-          </div>
-        </fieldset>
-        <hr />
-        <button
-          id="flip-submit-button"
-          type="submit"
-          class="flip-button-submit w-full"
-          disabled
-        >
-          connect wallet to play
-        </button>
-        <hr />
+      <h1 class="self-center text-center">KCF Transactor</h1>
+      <form id="tx-form" class="flex w-full flex-col gap-y-4">
+        <p>TODO</p>
       </form>
     </main>
     <footer class="flex w-full items-center justify-center gap-8">
@@ -280,356 +163,53 @@
                 </a>
             -->
     </footer>
+    <!-- connect-wallet dialog -->
+    <kda-wallet-connect-dialog>
+      <kda-wallet-chainweaver-connect-button
+        autoresume
+      ></kda-wallet-chainweaver-connect-button>
+      <kda-wallet-eckowallet-connect-button
+        autoresume
+        network-id="testnet04"
+      ></kda-wallet-eckowallet-connect-button>
+      <kda-wallet-walletconnect-connect-button
+        autoresume
+        network-id="testnet04"
+        wc-project-id="67ce47db9e4c2585385be3581ee3cb9d"
+        wc-project-name="KCF Transactor"
+        wc-project-description="A simple Kadena transaction execution interface for fast feedback and experimentation"
+        wc-project-url="https://kcf.wtf"
+        wc-project-icon="https://kcf.wtf/images/logo/logo.svg"
+      ></kda-wallet-walletconnect-connect-button>
+      <kda-wallet-zelcore-connect-button
+        autoresume
+      ></kda-wallet-zelcore-connect-button>
+    </kda-wallet-connect-dialog>
     <!-- dialogs -->
     <dialog id="instructions-dialog">
       <section class="dialog-container">
         <header class="flex items-center">
-          <h2 class="flex-1">How To Play</h2>
-          <button type="button">
-            <img
-              data-dark-img-src="/images/icons/close_white.svg"
-              data-light-img-src="/images/icons/close_black.svg"
-              alt="close modal button"
-              class="close-dialog-button-img"
-            />
-          </button>
+          <h2 class="flex-1">How To Use</h2>
+          <button aria-label="close" type="button">x</button>
         </header>
-        <ol class="list-inside list-decimal">
-          <li>Connect your Kadena wallet with funds on mainnet chain 2</li>
-          <li>Pick either heads or tails</li>
-          <li>Select your desired bet amount</li>
-          <li>Click "DOUBLE OR NOTHING"</li>
-          <li>Sign the transaction in your wallet</li>
-          <li>
-            After signing, the transaction will be posted to the network to be
-            mined.
-          </li>
-          <li>
-            Once the transaction is mined, the results will appear on-screen and
-            you will have received any payouts automatically. This usually takes
-            around 2 minutes.
-          </li>
-        </ol>
+        <p>TODO</p>
       </section>
     </dialog>
     <dialog id="faq-dialog">
       <section class="dialog-container">
         <header class="flex items-center">
           <h2 class="flex-1">FAQ</h2>
-          <button type="button">
-            <img
-              data-dark-img-src="/images/icons/close_white.svg"
-              data-light-img-src="/images/icons/close_black.svg"
-              alt="close modal button"
-              class="close-dialog-button-img"
-            />
-          </button>
+          <button aria-label="close" type="button">x</button>
         </header>
         <details>
           <!-- prettier-ignore to preserve leading whitespace -->
           <!-- prettier-ignore -->
-          <summary class="cursor-pointer font-semibold"> What is Kadena Coin Flip Reborn?</summary>
+          <summary class="cursor-pointer font-semibold"> What is KCF transactor?</summary>
           <section class="mt-2 flex flex-col gap-2">
-            <p>
-              Kadena Coin Flip Reborn is a place for you to play double or
-              nothing with your KDA! Simply pick whether to bet on heads or on
-              tails, choose a bet amount and click the "Double or Nothing"
-              button!
-            </p>
-          </section>
-        </details>
-        <details>
-          <summary class="cursor-pointer font-semibold">
-            What are the game's odds and fees?
-          </summary>
-          <section class="mt-2 flex flex-col gap-2">
-            <p>Odds are exactly 50/50 with a 3% fee per flip.</p>
-            <p>
-              For example, to bet 1 KDA, the user first pays 1.03 KDA (excluding
-              gas fees).
-            </p>
-            <p>
-              Upon winning, 2.0 KDA will be transferred back, resulting in a net
-              gain of 0.97 KDA.
-            </p>
-            <p>
-              Upon losing, the 1.03 KDA will be lost, resulting in a net loss of
-              1.03 KDA.
-            </p>
-          </section>
-        </details>
-        <details>
-          <summary class="cursor-pointer font-semibold">
-            Do you have any connection to the original Kadena Coin Flip?
-          </summary>
-          <section class="mt-2 flex flex-col gap-2">
-            <p>
-              We do NOT have any connection to the original Kadena Coin Flip.
-              This is a brand new project started by a different team for the
-              sole purpose of bringing fun and joy to the Kadena ecosystem.
-            </p>
-          </section>
-        </details>
-        <details>
-          <summary class="cursor-pointer font-semibold">
-            Why is my wallet unable to simulate the flip transaction?
-          </summary>
-          <section class="mt-2 flex flex-col gap-2">
-            <p>
-              To prevent cheating, your signed transaction is first sent to our
-              servers where it's signed by our dealer keypair before being
-              broadcast to the network. This means you're missing our dealer's
-              signature when you simulate the transaction, resulting in
-              simulation failure.
-            </p>
-          </section>
-        </details>
-        <details>
-          <summary class="cursor-pointer font-semibold">
-            What is the contract address?
-          </summary>
-          <section class="mt-2 flex flex-col gap-2">
-            <p>The contract is located at free.kcf on mainnet chain 2.</p>
+            <p>TODO</p>
           </section>
         </details>
       </section>
     </dialog>
-    <dialog id="in-progress-dialog">
-      <section class="dialog-container">
-        <header class="flex items-center">
-          <h2 class="ellipsising flex-1">Flip in progress</h2>
-          <button type="button">
-            <img
-              data-dark-img-src="/images/icons/close_white.svg"
-              data-light-img-src="/images/icons/close_black.svg"
-              alt="close modal button"
-              class="close-dialog-button-img"
-            />
-          </button>
-        </header>
-        <img
-          id="in-progress-dialog-coin-img"
-          src="/images/logo/logo.svg"
-          alt="a flipping coin"
-          class="coin-img w-16 self-center"
-        />
-        <p id="in-progress-dialog-prompt" class="self-center text-center">
-          Awaiting signature...
-        </p>
-        <footer class="flex flex-wrap justify-between">
-          <p>
-            <span>Time elapsed:</span>
-            <span id="in-progress-dialog-time">0</span>
-            <span>s</span>
-          </p>
-          <!-- set href in submit.js -->
-          <a
-            id="view-on-explorer-a"
-            href="https://explorer.chainweb.com"
-            rel="external"
-            target="_blank"
-            class="block underline"
-          >
-            View on explorer
-          </a>
-        </footer>
-      </section>
-    </dialog>
-    <dialog id="connect-wallet-dialog">
-      <section class="dialog-container">
-        <header class="flex items-center">
-          <h2 class="flex-1">Connect Wallet</h2>
-          <button type="button">
-            <img
-              data-dark-img-src="/images/icons/close_white.svg"
-              data-light-img-src="/images/icons/close_black.svg"
-              alt="close modal button"
-              class="close-dialog-button-img"
-            />
-          </button>
-        </header>
-        <ul class="flex flex-col gap-2">
-          <li>
-            <button
-              id="connect-chainweaver-button"
-              class="wallet-button w-full"
-              type="button"
-            >
-              Chainweaver Desktop
-            </button>
-          </li>
-          <li>
-            <button
-              id="connect-eckowallet-button"
-              class="wallet-button w-full"
-              type="button"
-            >
-              eckoWALLET
-            </button>
-          </li>
-          <li>
-            <button class="wallet-button w-full" disabled type="button">
-              Zelcore (Coming Soon)
-            </button>
-          </li>
-          <li>
-            <button class="wallet-button w-full" disabled type="button">
-              WalletConnect (Coming Soon)
-            </button>
-          </li>
-        </ul>
-      </section>
-    </dialog>
-    <dialog id="connect-chainweaver-dialog">
-      <section class="dialog-container">
-        <header class="flex items-center">
-          <h2 class="flex-1">Connect Chainweaver Desktop</h2>
-          <button type="button">
-            <img
-              data-dark-img-src="/images/icons/close_white.svg"
-              data-light-img-src="/images/icons/close_black.svg"
-              alt="close modal button"
-              class="close-dialog-button-img"
-            />
-          </button>
-        </header>
-        <form id="connect-chainweaver-form" class="flex flex-col gap-2">
-          <label>
-            <p>Please paste your 'k:' wallet address here:</p>
-            <!-- bg-transparent doesnt work bec input has a white background for some reason -->
-            <input
-              id="chainweaver-address-input"
-              type="text"
-              class="peer w-full rounded-md border-2 border-light-primary bg-light-main p-2 text-2xl invalid:border-failure dark:border-dark-primary dark:bg-dark-main dark:invalid:border-failure"
-            />
-            <p
-              id="chainweaver-address-input-errmsg"
-              class="hidden text-failure peer-invalid:block"
-            ></p>
-          </label>
-          <button class="wallet-button w-full" type="submit">Connect</button>
-        </form>
-      </section>
-    </dialog>
-    <template id="win-dialog-template">
-      <dialog>
-        <section class="dialog-container">
-          <header class="flex items-center">
-            <h2 class="flex-1 text-success">You won!</h2>
-            <button type="button">
-              <img
-                data-dark-img-src="/images/icons/close_white.svg"
-                data-light-img-src="/images/icons/close_black.svg"
-                alt="close modal button"
-                class="close-dialog-button-img"
-              />
-            </button>
-          </header>
-          <!-- TODO: a happy coin img -->
-          <img
-            src="/images/logo/logo.svg"
-            alt="a happy coin"
-            class="coin-img w-16 self-center"
-          />
-          <p>
-            <span>You've won </span>
-            <span class="win-dialog-amount"></span>
-            <span> KDA!</span>
-          </p>
-          <a
-            href="https://explorer.chainweb.com"
-            rel="external"
-            target="_blank"
-            class="view-on-explorer-a block underline"
-          >
-            View on explorer
-          </a>
-          <footer class="overflow-hidden">
-            <button type="button" class="play-again-button flip-button w-full">
-              Play again
-            </button>
-          </footer>
-        </section>
-      </dialog>
-    </template>
-    <template id="lose-dialog-template">
-      <dialog>
-        <section class="dialog-container">
-          <header class="flex items-center">
-            <h2 class="flex-1 text-failure">You lost</h2>
-            <button type="button">
-              <img
-                data-dark-img-src="/images/icons/close_white.svg"
-                data-light-img-src="/images/icons/close_black.svg"
-                alt="close modal button"
-                class="close-dialog-button-img"
-              />
-            </button>
-          </header>
-          <!-- TODO: a sad coin img -->
-          <img
-            src="/images/logo/logo.svg"
-            alt="a sad coin"
-            class="coin-img w-16 self-center"
-          />
-          <p>
-            <span>You've lost </span>
-            <span class="lose-dialog-amount"></span>
-            <span> KDA.</span>
-          </p>
-          <p>Better luck next time!</p>
-          <a
-            href="https://explorer.chainweb.com"
-            rel="external"
-            target="_blank"
-            class="view-on-explorer-a block underline"
-          >
-            View on explorer
-          </a>
-          <footer class="overflow-hidden">
-            <button type="button" class="play-again-button flip-button w-full">
-              Play again
-            </button>
-          </footer>
-        </section>
-      </dialog>
-    </template>
-    <template id="error-dialog-template">
-      <dialog>
-        <section class="dialog-container">
-          <header class="flex items-center">
-            <h2 class="flex-1 text-warning">Error</h2>
-            <button type="button">
-              <img
-                data-dark-img-src="/images/icons/close_white.svg"
-                data-light-img-src="/images/icons/close_black.svg"
-                alt="close modal button"
-                class="close-dialog-button-img"
-              />
-            </button>
-          </header>
-          <p>An unexpected error has occurred:</p>
-          <p class="flip-error-msg"></p>
-          <a
-            href="https://explorer.chainweb.com"
-            rel="external"
-            target="_blank"
-            class="view-on-explorer-a block underline"
-          >
-            View on explorer
-          </a>
-          <footer class="flex justify-center">
-            <a
-              class="underline"
-              href="https://twitter.com/messages/compose?recipient_id=1638169656124125192"
-              rel="external"
-              target="_blank"
-            >
-              Let us know
-            </a>
-          </footer>
-        </section>
-      </dialog>
-    </template>
   </body>
 </html>

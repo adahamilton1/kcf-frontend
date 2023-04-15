@@ -1,8 +1,5 @@
-/* eslint-disable no-restricted-imports */
-
-/** FUNCTIONS HERE ARE USED SERVER-SIDE, DO NOT USE ANY @/ LOCAL IMPORTS */
-
-import { DEFAULT_NETWORK_ID, DEFAULT_NETWORK_VERSION } from "../kcf/consts";
+const DEFAULT_NETWORK_ID = "testnet04";
+const DEFAULT_NETWORK_VERSION = "0.0";
 
 /**
  * @typedef SigningRequest
