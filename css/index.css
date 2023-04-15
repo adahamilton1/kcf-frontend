@@ -60,11 +60,7 @@
     @apply self-center;
     @apply m-auto;
 
-    /* border */
-    @apply rounded-md;
-    @apply border-light-primary;
-    @apply dark:border-dark-primary;
-    @apply border-2;
+    @apply rounded-container;
   }
 
   fieldset {
@@ -77,11 +73,8 @@
   input,
   textarea,
   select {
+    @apply rounded-container;
     @apply bg-transparent;
-    @apply rounded-md;
-    @apply border-light-primary;
-    @apply dark:border-dark-primary;
-    @apply border-2;
     @apply p-1;
   }
 
@@ -97,6 +90,13 @@
 }
 
 @layer components {
+  .rounded-container {
+    @apply rounded-md;
+    @apply border-light-primary;
+    @apply dark:border-dark-primary;
+    @apply border-2;
+  }
+
   /* need additional container within dialog because 
    * you cant set display: property of dialog or it'll show */
   .dialog-container {
@@ -138,10 +138,7 @@
     @apply w-full;
     @apply p-2;
     @apply text-xl;
-    @apply rounded-md;
-    @apply border-light-primary;
-    @apply dark:border-dark-primary;
-    @apply border-2;
+    @apply rounded-container;
     @apply text-light-faded;
     @apply dark:text-dark-faded;
 
@@ -172,10 +169,7 @@
     @apply text-3xl;
     @apply text-center;
     @apply uppercase;
-    @apply rounded-md;
-    @apply border-light-primary;
-    @apply dark:border-dark-primary;
-    @apply border-2;
+    @apply rounded-container;
 
     /* grow animation */
     @apply duration-200;
@@ -193,6 +187,7 @@
   .flip-button-submit {
     @apply flip-button-base;
     @apply bg-button-complementary;
+    @apply text-light-primary;
   }
 
   .flip-button-selected {
