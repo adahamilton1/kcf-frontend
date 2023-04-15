@@ -67,13 +67,32 @@
     @apply border-2;
   }
 
-  input {
+  fieldset {
+    @apply flex;
+    @apply flex-row;
+    @apply flex-wrap;
+    @apply gap-2;
+  }
+
+  input,
+  textarea,
+  select {
     @apply bg-transparent;
     @apply rounded-md;
     @apply border-light-primary;
     @apply dark:border-dark-primary;
     @apply border-2;
     @apply p-1;
+  }
+
+  select {
+    /* required to match text input height */
+    @apply p-1.5;
+  }
+
+  option {
+    @apply dark:bg-dark-main;
+    @apply bg-light-main;
   }
 }
 
@@ -145,23 +164,6 @@
   .coin-img {
     @apply rounded-full;
     @apply aspect-square;
-  }
-
-  .flip-buttons-fieldset {
-    @apply flex;
-    @apply w-full;
-    @apply flex-col;
-    @apply items-center;
-    @apply justify-between;
-    @apply space-y-4;
-  }
-
-  .flip-buttons-container {
-    @apply w-full;
-    @apply flex;
-    @apply flex-row;
-    @apply flex-wrap;
-    @apply gap-4;
   }
 
   .flip-button-base {

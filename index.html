@@ -115,8 +115,89 @@
     <main class="flex w-full flex-col items-center gap-y-4">
       <h1 class="self-center text-center">KCF Transactor</h1>
       <form id="tx-form" class="flex w-full flex-col gap-y-4">
-        <p>TODO</p>
+        <fieldset>
+          <legend>Network</legend>
+          <label class="min-w-[66%] grow">
+            <p>Chainweb Endpoint</p>
+            <input class="w-full" type="text" />
+          </label>
+          <label class="grow">
+            <p>Network ID</p>
+            <select name="networkId" class="w-full">
+              <option value="testnet04" selected>testnet04</option>
+              <option value="mainnet01">mainnet01</option>
+              <option value="develop">develop</option>
+            </select>
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Meta</legend>
+          <label>
+            <p>Chain ID</p>
+            <select name="chainId" class="w-full">
+              <option value="0" selected>0</option>
+              <option value="1" selected>1</option>
+              <option value="2" selected>2</option>
+              <option value="3" selected>3</option>
+              <option value="4" selected>4</option>
+              <option value="5" selected>5</option>
+              <option value="6" selected>6</option>
+              <option value="7" selected>7</option>
+              <option value="8" selected>8</option>
+              <option value="9" selected>9</option>
+              <option value="10" selected>10</option>
+              <option value="11" selected>11</option>
+              <option value="12" selected>12</option>
+              <option value="13" selected>13</option>
+              <option value="14" selected>14</option>
+              <option value="15" selected>15</option>
+              <option value="16" selected>16</option>
+              <option value="17" selected>17</option>
+              <option value="18" selected>18</option>
+              <option value="19" selected>19</option>
+            </select>
+          </label>
+          <label class="min-w-[27%] flex-1">
+            <p>Gas Limit</p>
+            <input type="number" name="gasLimit" class="w-full" />
+          </label>
+          <label class="min-w-[27%] flex-1">
+            <p>Gas Price</p>
+            <input type="number" name="gasPrice" class="w-full" />
+          </label>
+          <label class="min-w-[27%] flex-1">
+            <p>TTL</p>
+            <input type="number" name="ttl" class="w-full" />
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Capabilities</legend>
+        </fieldset>
+        <fieldset>
+          <label class="w-full">
+            <legend>Pact Code</legend>
+            <textarea rows="6" name="code" class="w-full"></textarea>
+          </label>
+        </fieldset>
+        <fieldset>
+          <label class="w-full">
+            <legend>Env Data</legend>
+            <textarea rows="6" name="data" class="w-full"></textarea>
+          </label>
+        </fieldset>
+        <fieldset>
+          <button class="flip-button grow basis-1/3" type="button">
+            Simulate
+          </button>
+          <button class="flip-button-submit grow basis-1/3" type="button">
+            Send
+          </button>
+        </fieldset>
       </form>
+      <label class="w-full">
+        <legend>Result</legend>
+        <textarea rows="6" name="data" class="w-full" disabled></textarea>
+      </label>
     </main>
     <footer class="flex w-full items-center justify-center gap-8">
       <button id="instructions-button" type="button" class="icon-button">

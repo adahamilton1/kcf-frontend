@@ -9,6 +9,8 @@ module.exports = {
   // since this has no exclude option
   content: ["./index.html", "./404.html", "./css/**/*.css", "./js/**/*.js"],
   plugins: [
+    // TODO: this probably can be moved to @layer utilities instead of requiring
+    // its own plugin
     // use addUtilities here so that this can be used with stuff like hover:
     plugin(({ addUtilities }) => {
       addUtilities({
@@ -24,6 +26,7 @@ module.exports = {
         },
       });
     }),
+    // require("@tailwindcss/forms"),
   ],
   darkMode: "class",
   theme: {
