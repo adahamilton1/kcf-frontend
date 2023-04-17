@@ -1,6 +1,8 @@
 import { defaultChainwebEndpoint } from "@/js/lib/kda/utils";
 import { PactCommand } from "@kadena/client";
 import {
+  addCap,
+  addCapArg,
   matchCapArg,
   matchCapIndex,
   matchCapSigner,
@@ -9,7 +11,6 @@ import {
   parseCapSigner,
 } from "@/js/index/utils";
 import { getConnectWalletDialog } from "@/js/index/connectWalletDialog";
-import { NoWalletConnectedError } from "@/js/common/errs";
 
 /**
  * @typedef {{
@@ -20,10 +21,14 @@ import { NoWalletConnectedError } from "@/js/common/errs";
  */
 
 /**
- * @returns {{
+ * @typedef {{
  *  cmd: PactCommand;
  *  chainwebEndpoint: string;
- * }}
+ * }} FormVal
+ */
+
+/**
+ * @returns {FormVal}
  * @throws any form validation errors or if wallet not connected and there are caps present
  */
 export function parseForm() {
@@ -142,10 +147,7 @@ export function parseForm() {
   }
   const { connectedWallet } = getConnectWalletDialog();
   if (capMap.size > 0) {
-    if (!connectedWallet) {
-      throw new NoWalletConnectedError();
-    }
-    const { pubKey } = connectedWallet.accounts[0];
+    const pubKey = connectedWallet ? connectedWallet.accounts[0].pubKey : "";
     for (const { signer, cap, args } of capMap.values()) {
       parseAndAddCap(cmd, cap, args, signer, pubKey);
     }
@@ -225,4 +227,132 @@ export function hideLoadingShowCopy() {
   // @ts-ignore
   const copyBtn = document.getElementById("copy-result-button");
   copyBtn.classList.remove("hidden");
+}
+
+/**
+ * @param {FormVal} formVal
+ * @returns {URLSearchParams}
+ */
+export function formValToGetParams({ chainwebEndpoint, cmd }) {
+  const {
+    publicMeta: { chainId, sender, gasLimit, gasPrice, ttl },
+    networkId,
+    signers,
+    code,
+    data,
+  } = cmd;
+  const res = new URLSearchParams();
+  res.append("chainwebEndpoint", encodeURIComponent(chainwebEndpoint));
+  res.append("networkId", networkId);
+  res.append("chainId", chainId);
+  res.append("gasLimit", gasLimit.toString());
+  res.append("gasPrice", gasPrice.toString());
+  res.append("ttl", ttl.toString());
+  res.append("sender", encodeURIComponent(sender));
+  res.append("signers", encodeURIComponent(JSON.stringify(signers)));
+  res.append("code", encodeURIComponent(code));
+  res.append("data", encodeURIComponent(JSON.stringify(data)));
+  return res;
+}
+
+/**
+ *
+ * @param {string} keyName
+ * @param {URLSearchParams} urlSearchParams
+ */
+function updateInputValue(keyName, urlSearchParams) {
+  /** @type {HTMLInputElement} */
+  // @ts-ignore
+  const input = document.querySelector(`[name="${keyName}"]`);
+  const saved = urlSearchParams.get(keyName);
+  if (saved !== null) {
+    input.value = decodeURIComponent(saved);
+  }
+}
+
+/**
+ *
+ * @param {string} keyName
+ * @param {URLSearchParams} urlSearchParams
+ */
+function updateSelectValue(keyName, urlSearchParams) {
+  /** @type {HTMLSelectElement} */
+  // @ts-ignore
+  const input = document.querySelector(`[name="${keyName}"]`);
+  const saved = urlSearchParams.get(keyName);
+  if (saved === null) {
+    return;
+  }
+  for (const optionRaw of input.children) {
+    /** @type {HTMLOptionElement} */
+    // @ts-ignore
+    const option = optionRaw;
+    if (option.value === saved) {
+      if (!option.hasAttribute("selected")) {
+        option.setAttribute("selected", "1");
+      }
+    } else if (option.hasAttribute("selected")) {
+      option.removeAttribute("selected");
+    }
+  }
+}
+
+/**
+ *
+ * @param {import("@kadena/client").IPactCommand["signers"]} signers
+ */
+function recreateCaps(signers) {
+  /** @type {HTMLDivElement} */
+  // @ts-ignore
+  const capContainer = document.getElementById("cap-container");
+  capContainer.innerHTML = "";
+  let capIndex = 0;
+  for (const { pubKey, caps } of signers) {
+    for (const { name, args } of caps) {
+      const capDiv = addCap();
+      /** @type {HTMLInputElement} */
+      // @ts-ignore
+      const nameInp = capDiv.querySelector(".cap-input");
+      nameInp.value = name;
+      /** @type {HTMLInputElement} */
+      // @ts-ignore
+      const signerInp = capDiv.querySelector(".cap-signer-input");
+      signerInp.value = pubKey;
+      for (const arg of args) {
+        const argDiv = addCapArg(capDiv, capIndex);
+        /** @type {HTMLInputElement} */
+        // @ts-ignore
+        const argInp = argDiv.querySelector("input");
+        if (typeof arg === "object") {
+          argInp.value = JSON.stringify(arg);
+        } else {
+          argInp.value = arg.toString();
+        }
+      }
+
+      capIndex += 1;
+    }
+  }
+}
+
+/**
+ *
+ * @param {URLSearchParams} urlSearchParams
+ */
+export function parseGetParamsUpdateForm(urlSearchParams) {
+  updateInputValue("chainwebEndpoint", urlSearchParams);
+  updateSelectValue("networkId", urlSearchParams);
+  updateSelectValue("chainId", urlSearchParams);
+  updateInputValue("gasLimit", urlSearchParams);
+  updateInputValue("gasPrice", urlSearchParams);
+  updateInputValue("ttl", urlSearchParams);
+  updateInputValue("sender", urlSearchParams);
+  updateInputValue("code", urlSearchParams);
+  updateInputValue("data", urlSearchParams);
+  const maybeSignersStr = urlSearchParams.get("signers");
+  if (maybeSignersStr) {
+    /** @type {import("@kadena/client").IPactCommand["signers"]} */
+    const signers = JSON.parse(decodeURIComponent(maybeSignersStr));
+    recreateCaps(signers);
+  }
 }

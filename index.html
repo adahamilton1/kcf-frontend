@@ -18,6 +18,7 @@
       src="/js/index/header/walletInfoDiv/index.js"
     ></script>
     <script type="module" src="/js/index/form/addCapButton.js"></script>
+    <script type="module" src="/js/index/form/shareButton.js"></script>
     <script type="module" src="/js/index/form/signSimulateButton.js"></script>
     <script type="module" src="/js/index/form/signSendButton.js"></script>
     <script
@@ -30,6 +31,8 @@
       src="/js/index/form/readonlySimulateButton.js"
     ></script>
     <script type="module" src="/js/index/form/copyResultButton.js"></script>
+    <script type="module" src="/js/index/form/index.js"></script>
+
     <!-- needs to be last to allow all wallet listeners to be attached before autoresume happens -->
     <script type="module" src="/js/index/index.js"></script>
 
@@ -234,7 +237,9 @@
           </label>
         </fieldset>
         <fieldset>
-          <button class="flip-button flex-1" type="button">Share</button>
+          <button id="share-button" class="flip-button flex-1" type="button">
+            Share
+          </button>
         </fieldset>
         <hr />
         <fieldset>

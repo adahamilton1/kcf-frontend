@@ -141,7 +141,7 @@ export function addCap() {
  * @param {number} capIndex
  * @returns {HTMLDivElement}
  */
-function addCapArg(capDiv, capIndex) {
+export function addCapArg(capDiv, capIndex) {
   /** @type {HTMLFieldSetElement} */
   // @ts-ignore
   const fieldset = capDiv.querySelector("fieldset");
