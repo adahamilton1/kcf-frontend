@@ -3,6 +3,7 @@ import { PactCommand } from "@kadena/client";
 import {
   addCap,
   addCapArg,
+  confirmViaDialog,
   matchCapArg,
   matchCapIndex,
   matchCapSigner,
@@ -354,5 +355,118 @@ export function parseGetParamsUpdateForm(urlSearchParams) {
     /** @type {import("@kadena/client").IPactCommand["signers"]} */
     const signers = JSON.parse(decodeURIComponent(maybeSignersStr));
     recreateCaps(signers);
+  }
+}
+
+const FORM_TEMPLATES_LOCALSTORAGE_KEY = "savedPactTemplates";
+
+/**
+ * @typedef {{
+ *  name: string;
+ *  urlSearchParams: string;
+ * }} SaveFormTemplate
+ */
+
+/**
+ * @returns {SaveFormTemplate[]}
+ */
+export function loadFormTemplates() {
+  const curr = window.localStorage.getItem(FORM_TEMPLATES_LOCALSTORAGE_KEY);
+  if (curr === null) {
+    return [];
+  }
+  return JSON.parse(curr);
+}
+
+/**
+ * @param {string} name
+ * @param {URLSearchParams} urlSearchParams
+ */
+export function saveFormTemplate(name, urlSearchParams) {
+  const res = loadFormTemplates();
+  res.push({
+    name,
+    urlSearchParams: urlSearchParams.toString(),
+  });
+  window.localStorage.setItem(
+    FORM_TEMPLATES_LOCALSTORAGE_KEY,
+    JSON.stringify(res)
+  );
+}
+
+/**
+ *
+ * @param {number} index
+ */
+export function deleteFormTemplate(index) {
+  const curr = loadFormTemplates();
+  curr.splice(index, 1);
+  window.localStorage.setItem(
+    FORM_TEMPLATES_LOCALSTORAGE_KEY,
+    JSON.stringify(curr)
+  );
+}
+
+/**
+ *
+ * @param {SaveFormTemplate} _args
+ */
+function addFormTemplate({ name, urlSearchParams }) {
+  /** @type {HTMLDivElement} */
+  // @ts-ignore
+  const div = document.getElementById("saved-templates-div");
+  /** @type {HTMLTemplateElement} */
+  // @ts-ignore
+  const template = document.getElementById("saved-template-template");
+  /** @type {HTMLDivElement} */
+  // @ts-ignore
+  const newFormTemplateRow = template.content.firstElementChild.cloneNode(true);
+  /** @type {HTMLButtonElement} */
+  // @ts-ignore
+  const selectBtn = newFormTemplateRow.querySelector(
+    `button:not([aria-label="close"])`
+  );
+  selectBtn.onclick = () => {
+    window.location.href = `${window.location.origin}?${urlSearchParams}`;
+  };
+  /** @type {HTMLButtonElement} */
+  // @ts-ignore
+  const closeBtn = newFormTemplateRow.querySelector(
+    `button[aria-label="close"]`
+  );
+  closeBtn.onclick = async () => {
+    const shouldDelete = await confirmViaDialog("Delete template?");
+    if (!shouldDelete) {
+      return;
+    }
+    const index = Array.from(div.children).indexOf(newFormTemplateRow);
+    deleteFormTemplate(index);
+    div.removeChild(newFormTemplateRow);
+  };
+  /** @type {HTMLHeadingElement} */
+  // @ts-ignore
+  const h3 = newFormTemplateRow.querySelector("h3");
+  h3.innerText = name;
+
+  div.appendChild(newFormTemplateRow);
+}
+
+export function loadAndRenderFormTemplates() {
+  /** @type {HTMLDivElement} */
+  // @ts-ignore
+  const div = document.getElementById("saved-templates-div");
+  div.innerHTML = "";
+  const templates = loadFormTemplates();
+  /** @type {HTMLParagraphElement} */
+  // @ts-ignore
+  const noTemplatesYetPara = document.getElementById("no-templates-yet-para");
+  if (
+    templates.length > 0 &&
+    !noTemplatesYetPara.classList.contains("hidden")
+  ) {
+    noTemplatesYetPara.classList.add("hidden");
+  }
+  for (const saved of templates) {
+    addFormTemplate(saved);
   }
 }

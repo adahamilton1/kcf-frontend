@@ -19,6 +19,7 @@
     ></script>
     <script type="module" src="/js/index/form/addCapButton.js"></script>
     <script type="module" src="/js/index/form/shareButton.js"></script>
+    <script type="module" src="/js/index/form/saveTemplateButton.js"></script>
     <script type="module" src="/js/index/form/signSimulateButton.js"></script>
     <script type="module" src="/js/index/form/signSendButton.js"></script>
     <script
@@ -240,6 +241,13 @@
           <button id="share-button" class="flip-button flex-1" type="button">
             Share
           </button>
+          <button
+            id="save-template-button"
+            class="flip-button flex-1"
+            type="button"
+          >
+            Save Template
+          </button>
         </fieldset>
         <hr />
         <fieldset>
@@ -321,6 +329,12 @@
           readonly
         ></textarea>
       </fieldset>
+      <hr class="w-full" />
+      <section class="flex w-full flex-col gap-2">
+        <h2 class="text-center">Saved Templates</h2>
+        <p id="no-templates-yet-para">You don't have any saved templates yet</p>
+        <div id="saved-templates-div" class="flex w-full flex-col gap-2"></div>
+      </section>
     </main>
     <hr class="w-full" />
     <footer class="flex w-full items-center justify-center gap-8">
@@ -395,7 +409,9 @@
       <section class="dialog-container">
         <header class="flex items-center">
           <h2 class="flex-1">How To Use</h2>
-          <button aria-label="close" type="button">x</button>
+          <button aria-label="close" type="button" class="icon-button">
+            x
+          </button>
         </header>
         <p>TODO</p>
       </section>
@@ -404,7 +420,9 @@
       <section class="dialog-container">
         <header class="flex items-center">
           <h2 class="flex-1">FAQ</h2>
-          <button aria-label="close" type="button">x</button>
+          <button aria-label="close" type="button" class="icon-button">
+            x
+          </button>
         </header>
         <details>
           <summary class="cursor-pointer font-semibold">
@@ -419,7 +437,9 @@
     <!-- templates -->
     <template id="cap-template">
       <div class="rounded-container flex w-full flex-col gap-2 p-2">
-        <button aria-label="close" type="button" class="self-end">x</button>
+        <button aria-label="close" type="button" class="icon-button self-end">
+          x
+        </button>
         <fieldset class="flex flex-wrap">
           <label class="basis-full">
             <p>Capability</p>
@@ -454,7 +474,15 @@
           class="cap-arg-input flex-1"
           placeholder='stringArg | true | { "decimal": "1.0" })'
         />
-        <button aria-label="close" type="button">x</button>
+        <button aria-label="close" type="button" class="icon-button">x</button>
+      </div>
+    </template>
+    <template id="saved-template-template">
+      <div class="rounded-container flex items-center justify-between p-2">
+        <button class="w-5/6">
+          <h3 class="w-full truncate break-all text-left"></h3>
+        </button>
+        <button aria-label="close" type="button" class="icon-button">x</button>
       </div>
     </template>
     <template id="confirm-dialog-template">
@@ -465,6 +493,23 @@
             <button aria-label="close" type="button">x</button>
           </header>
           <button type="button" class="flip-button-submit">OK</button>
+        </section>
+      </dialog>
+    </template>
+    <template id="save-form-template-dialog-template">
+      <dialog>
+        <section class="dialog-container overflow-hidden">
+          <header class="flex items-center">
+            <h2 class="flex-1">Save Template</h2>
+            <button aria-label="close" type="button" class="icon-button">
+              x
+            </button>
+          </header>
+          <label class="flex w-full flex-col">
+            <p>Enter a name for this template</p>
+            <input type="text" />
+          </label>
+          <button type="button" class="flip-button-submit">Save</button>
         </section>
       </dialog>
     </template>
