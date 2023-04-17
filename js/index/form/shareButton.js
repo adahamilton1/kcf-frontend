@@ -1,4 +1,9 @@
-import { formValToGetParams, parseForm } from "@/js/index/form/utils";
+import {
+  formValToGetParams,
+  getResultTextArea,
+  parseForm,
+  updateResult,
+} from "@/js/index/form/utils";
 import { confirmViaDialog } from "@/js/index/utils";
 
 function onPageParsed() {
@@ -6,12 +11,17 @@ function onPageParsed() {
   // @ts-ignore
   const shareButton = document.getElementById("share-button");
   shareButton.onclick = async () => {
-    const formVal = parseForm();
-    const getParams = formValToGetParams(formVal);
-    window.navigator.clipboard.writeText(
-      `${window.location.origin}?${getParams.toString()}`
-    );
-    await confirmViaDialog("URL written to clipboard!");
+    try {
+      const formVal = parseForm();
+      const getParams = formValToGetParams(formVal);
+      window.navigator.clipboard.writeText(
+        `${window.location.origin}?${getParams.toString()}`
+      );
+      await confirmViaDialog("URL written to clipboard!");
+    } catch (e) {
+      updateResult(e.message, true);
+      getResultTextArea().focus();
+    }
   };
 }
 

@@ -183,7 +183,7 @@
           </label>
           <label class="min-w-[27%] flex-1">
             <p>Gas Limit</p>
-            <input type="tel" name="gasLimit" class="w-full" />
+            <input type="tel" name="gasLimit" value="1000" class="w-full" />
           </label>
           <label class="min-w-[27%] flex-1">
             <p>Gas Price</p>
@@ -302,33 +302,32 @@
         </fieldset>
         <hr />
       </form>
-      <fieldset class="w-full">
-        <legend class="flex items-center justify-center gap-2 align-middle">
-          <p>Result</p>
+      <!-- safari renders legend weirdly here, so just use div -->
+      <div class="flex w-full items-center justify-center gap-2 align-middle">
+        <p class="text-3xl">Result</p>
+        <img
+          id="result-loading-spinner"
+          data-dark-img-src="/images/icons/loading-dark.svg"
+          data-light-img-src="/images/icons/loading-light.svg"
+          alt="loading spinner"
+          class="block hidden h-6 w-6 animate-spin"
+        />
+        <button id="copy-result-button" class="icon-button block self-start">
           <img
-            id="result-loading-spinner"
-            data-dark-img-src="/images/icons/loading-dark.svg"
-            data-light-img-src="/images/icons/loading-light.svg"
-            alt="loading spinner"
-            class="block hidden h-6 w-6 animate-spin"
+            data-dark-img-src="/images/icons/copy-dark.svg"
+            data-light-img-src="/images/icons/copy-light.svg"
+            alt="copy result"
+            class="block h-6 w-6"
           />
-          <button id="copy-result-button" class="icon-button block self-start">
-            <img
-              data-dark-img-src="/images/icons/copy-dark.svg"
-              data-light-img-src="/images/icons/copy-light.svg"
-              alt="copy result"
-              class="block h-6 w-6"
-            />
-          </button>
-        </legend>
-        <textarea
-          id="result-textarea"
-          rows="12"
-          name="data"
-          class="w-full whitespace-pre-wrap"
-          readonly
-        ></textarea>
-      </fieldset>
+        </button>
+      </div>
+      <textarea
+        id="result-textarea"
+        rows="12"
+        name="data"
+        class="w-full whitespace-pre-wrap"
+        readonly
+      ></textarea>
       <hr class="w-full" />
       <section class="flex w-full flex-col gap-2">
         <h2 class="text-center">Saved Templates</h2>
