@@ -6,11 +6,13 @@ import {
   updateResult,
 } from "@/js/index/form/utils";
 import { localTx } from "@/js/lib/kda/utils";
+import { getConnectWalletDialog } from "@/js/index/connectWalletDialog";
+import { NoWalletConnectedError } from "@/js/common/errs";
 
 function onPageParsed() {
   /** @type {HTMLButtonElement} */
   // @ts-ignore
-  const btn = document.getElementById("readonly-simulate-button");
+  const btn = document.getElementById("quicksign-simulate-button");
   btn.onclick = async () => {
     showLoadingHideCopy();
     getResultTextArea().focus();
@@ -18,11 +20,12 @@ function onPageParsed() {
     let feedback = "";
     try {
       const { cmd, chainwebEndpoint } = parseForm();
-      const tx = cmd.createCommand();
-      /** @type {import("@kadena/types").ICommand} */
-      // @ts-ignore
-      const txCasted = tx;
-      const resp = await localTx(chainwebEndpoint, txCasted);
+      const wallet = getConnectWalletDialog().connectedWallet;
+      if (!wallet) {
+        throw new NoWalletConnectedError();
+      }
+      const [tx] = await wallet.quickSignCmds([cmd]);
+      const resp = await localTx(chainwebEndpoint, tx);
       if (resp.result.status === "failure") {
         isError = true;
       }

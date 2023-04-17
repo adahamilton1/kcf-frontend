@@ -18,10 +18,18 @@
       src="/js/index/header/walletInfoDiv/index.js"
     ></script>
     <script type="module" src="/js/index/form/addCapButton.js"></script>
+    <script type="module" src="/js/index/form/signSimulateButton.js"></script>
+    <script type="module" src="/js/index/form/signSendButton.js"></script>
+    <script
+      type="module"
+      src="/js/index/form/quicksignSimulateButton.js"
+    ></script>
+    <script type="module" src="/js/index/form/quicksignSendButton.js"></script>
     <script
       type="module"
       src="/js/index/form/readonlySimulateButton.js"
     ></script>
+    <script type="module" src="/js/index/form/copyResultButton.js"></script>
     <!-- needs to be last to allow all wallet listeners to be attached before autoresume happens -->
     <script type="module" src="/js/index/index.js"></script>
 
@@ -186,6 +194,15 @@
             <p>TTL</p>
             <input type="tel" name="ttl" value="600" class="w-full" />
           </label>
+          <label class="min-w-[45%] flex-1">
+            <p>Sender (optional)</p>
+            <input
+              type="text"
+              name="sender"
+              placeholder="default wallet account"
+              class="w-full"
+            />
+          </label>
         </fieldset>
         <fieldset>
           <legend>Capabilities</legend>
@@ -272,8 +289,25 @@
         </fieldset>
         <hr />
       </form>
-      <label class="w-full">
-        <legend>Result</legend>
+      <fieldset class="w-full">
+        <legend class="flex items-center justify-center gap-2 align-middle">
+          <p>Result</p>
+          <img
+            id="result-loading-spinner"
+            data-dark-img-src="/images/icons/loading-dark.svg"
+            data-light-img-src="/images/icons/loading-light.svg"
+            alt="loading spinner"
+            class="block hidden h-6 w-6 animate-spin"
+          />
+          <button id="copy-result-button" class="icon-button block self-start">
+            <img
+              data-dark-img-src="/images/icons/copy-dark.svg"
+              data-light-img-src="/images/icons/copy-light.svg"
+              alt="copy result"
+              class="block h-6 w-6"
+            />
+          </button>
+        </legend>
         <textarea
           id="result-textarea"
           rows="12"
@@ -281,7 +315,7 @@
           class="w-full whitespace-pre-wrap"
           readonly
         ></textarea>
-      </label>
+      </fieldset>
     </main>
     <hr class="w-full" />
     <footer class="flex w-full items-center justify-center gap-8">
@@ -392,10 +426,11 @@
             />
           </label>
           <label class="basis-full">
-            <p>Signer (optional, default wallet pubkey)</p>
+            <p>Signer (optional)</p>
             <input
               type="text"
               name="cap0Signer"
+              placeholder="default wallet pubkey"
               class="cap-signer-input w-full"
             />
           </label>
@@ -412,7 +447,7 @@
           type="text"
           name="cap0Arg0"
           class="cap-arg-input flex-1"
-          placeholder='sender | true | { "decimal": "1.0" })'
+          placeholder='stringArg | true | { "decimal": "1.0" })'
         />
         <button aria-label="close" type="button">x</button>
       </div>

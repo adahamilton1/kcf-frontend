@@ -9,6 +9,7 @@ import {
   parseCapSigner,
 } from "@/js/index/utils";
 import { getConnectWalletDialog } from "@/js/index/connectWalletDialog";
+import { NoWalletConnectedError } from "@/js/common/errs";
 
 /**
  * @typedef {{
@@ -92,6 +93,9 @@ export function parseForm() {
         }
         cmd.setMeta({ ttl });
         break;
+      case "sender":
+        cmd.setMeta({ sender: strValue.toString() });
+        break;
       case "code":
         cmd.code = strValue.toString();
         break;
@@ -136,20 +140,23 @@ export function parseForm() {
         break;
     }
   }
-  // @ts-ignore
-  cmd.setMeta({}, networkId);
-  if (!chainwebEndpoint) {
-    chainwebEndpoint = defaultChainwebEndpoint(cmd.networkId);
-  }
   const { connectedWallet } = getConnectWalletDialog();
   if (capMap.size > 0) {
     if (!connectedWallet) {
-      throw new Error("No wallet connected");
+      throw new NoWalletConnectedError();
     }
     const { pubKey } = connectedWallet.accounts[0];
     for (const { signer, cap, args } of capMap.values()) {
       parseAndAddCap(cmd, cap, args, signer, pubKey);
     }
+  }
+  if (connectedWallet && !cmd.publicMeta.sender) {
+    cmd.setMeta({ sender: connectedWallet.accounts[0].account });
+  }
+  // @ts-ignore
+  cmd.setMeta({}, networkId);
+  if (!chainwebEndpoint) {
+    chainwebEndpoint = defaultChainwebEndpoint(cmd.networkId);
   }
   return {
     cmd,
@@ -196,4 +203,26 @@ export function updateResult(msg, isError) {
     textarea.classList.remove("text-failure");
   }
   textarea.value = msg;
+}
+
+export function showLoadingHideCopy() {
+  /** @type {HTMLImageElement} */
+  // @ts-ignore
+  const loadingImg = document.getElementById("result-loading-spinner");
+  loadingImg.classList.remove("hidden");
+  /** @type {HTMLButtonElement} */
+  // @ts-ignore
+  const copyBtn = document.getElementById("copy-result-button");
+  copyBtn.classList.add("hidden");
+}
+
+export function hideLoadingShowCopy() {
+  /** @type {HTMLImageElement} */
+  // @ts-ignore
+  const loadingImg = document.getElementById("result-loading-spinner");
+  loadingImg.classList.add("hidden");
+  /** @type {HTMLButtonElement} */
+  // @ts-ignore
+  const copyBtn = document.getElementById("copy-result-button");
+  copyBtn.classList.remove("hidden");
 }
