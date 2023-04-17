@@ -1,5 +1,11 @@
-# Kadena Coin Flip Reborn Frontend
+# KCF Transactor Frontend
+
+A simple, minimal, dev-facing UI for users to preview and execute Kadena transactions for fast experimentation and iteration.
 
 ## Local Testing
 
-`DEALER_PUBLIC_KEY=... DEALER_SECRET_KEY=... pnpm vercel-dev`
+`pnpm dev`
+
+## Production Build
+
+`pnpm build`
