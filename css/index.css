@@ -89,6 +89,10 @@
     @apply dark:bg-dark-main;
     @apply bg-light-main;
   }
+
+  a {
+    @apply underline;
+  }
 }
 
 @layer components {

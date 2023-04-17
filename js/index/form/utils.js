@@ -466,6 +466,12 @@ export function loadAndRenderFormTemplates() {
   ) {
     noTemplatesYetPara.classList.add("hidden");
   }
+  if (
+    templates.length === 0 &&
+    noTemplatesYetPara.classList.contains("hidden")
+  ) {
+    noTemplatesYetPara.classList.remove("hidden");
+  }
   for (const saved of templates) {
     addFormTemplate(saved);
   }

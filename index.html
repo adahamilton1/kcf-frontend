@@ -367,6 +367,19 @@
           alt="Twitter"
         />
       </a>
+      <a
+        href="https://github.com/adahamilton1/kcf-frontend"
+        rel="external"
+        target="_blank"
+        class="icon-button block"
+      >
+        <img
+          data-dark-img-src="/images/icons/github-dark.svg"
+          data-light-img-src="/images/icons/github-light.svg"
+          class="h-10 w-10"
+          alt="GitHub"
+        />
+      </a>
       <!-- No discord for now
                 <a
                 rel="external"
@@ -413,7 +426,39 @@
             x
           </button>
         </header>
-        <p>TODO</p>
+        <ol class="list-inside list-decimal">
+          <li>Connect your wallet</li>
+          <li>Enter transaction data</li>
+          <li>
+            To sign and simulate the transaction using /local, click the
+            "SIMULATE" button under "Sign"
+          </li>
+          <li>
+            To sign and send the transaction, click the "SEND" button under
+            "Sign"
+          </li>
+          <li>
+            To quicksign and simulate the transaction using /local, click the
+            "SIMULATE" button under "Quicksign"
+          </li>
+          <li>
+            To quicksign and send the transaction, click the "SEND" button under
+            "Quicksign"
+          </li>
+          <li>
+            To execute read-only pact code without signing, click the "SIMULATE"
+            button under "Read-Only". Your wallet does not need to be connected.
+          </li>
+          <li>Raw JSON results will appear under "Result"</li>
+          <li>
+            Use the "SHARE" button to copy a URL that shares your current
+            transaction form inputs
+          </li>
+          <li>
+            Use the "SAVE TEMPLATE" button to save your current transaction form
+            inputs locally
+          </li>
+        </ol>
       </section>
     </dialog>
     <dialog id="faq-dialog">
@@ -426,10 +471,86 @@
         </header>
         <details>
           <summary class="cursor-pointer font-semibold">
-            What is KCF transactor?
+            What is KCF Transactor?
           </summary>
           <section class="mt-2 flex flex-col gap-2">
-            <p>TODO</p>
+            <p>
+              KCF Transactor is a simple, minimal, dev-facing UI for users to
+              preview and execute Kadena transactions for fast experimentation
+              and iteration.
+            </p>
+          </section>
+        </details>
+        <details>
+          <summary class="cursor-pointer font-semibold">
+            Are there other similar dapps?
+          </summary>
+          <section class="mt-2 flex flex-col gap-2">
+            <p>
+              <a
+                rel="external"
+                target="_blank"
+                href="https://kadenakode.luzzotica.xyz/"
+                >Kadena Kode</a
+              >
+              by
+              <a
+                rel="external"
+                target="_blank"
+                href="https://github.com/Luzzotica"
+                >Sterling Long</a
+              >
+              was what originally inspired this project.
+            </p>
+            <p>
+              There's also
+              <a
+                rel="external"
+                target="_blank"
+                href="https://txtool.chainweb.com/"
+                >tx-tester</a
+              >
+              by
+              <a
+                rel="external"
+                target="_blank"
+                href="https://github.com/kadena-community"
+                >Kadena Community</a
+              >
+            </p>
+          </section>
+        </details>
+        <details>
+          <summary class="cursor-pointer font-semibold">
+            What's the difference between KCF Transactor and these other similar
+            dapps?
+          </summary>
+          <section class="mt-2 flex flex-col gap-2">
+            <p>
+              <a
+                rel="external"
+                target="_blank"
+                href="https://txtool.chainweb.com/"
+                >tx-tester</a
+              >
+              is only able to simulate transactions via /local without sending
+              them, but also displays more details like different transaction
+              formats.
+            </p>
+            <p>
+              <a
+                rel="external"
+                target="_blank"
+                href="https://kadenakode.luzzotica.xyz/"
+                >Kadena Kode</a
+              >
+              does not have WalletConnect enabled yet and is unable to save
+              transaction inputs, but has a more non-dev friendly UI.
+            </p>
+            <p>
+              Both dapps are built with react.js while this is built with
+              vanilla js
+            </p>
           </section>
         </details>
       </section>
