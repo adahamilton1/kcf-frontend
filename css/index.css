@@ -78,10 +78,12 @@
     @apply p-1;
   }
 
+  /* required to match text input height */
+  /*
   select {
-    /* required to match text input height */
     @apply p-1.5;
   }
+  */
 
   option {
     @apply dark:bg-dark-main;
@@ -174,8 +176,10 @@
     /* grow animation */
     @apply duration-200;
     @apply ease-in-out;
-    @apply hover:scale-110;
-    @apply focus:scale-110;
+    @apply enabled:hover:scale-110;
+    @apply enabled:focus:scale-110;
+    @apply disabled:text-light-faded;
+    @apply dark:disabled:text-dark-faded;
   }
 
   .flip-button {

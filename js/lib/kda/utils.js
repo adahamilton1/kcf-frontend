@@ -268,3 +268,14 @@ export function toExplorerLink(reqKey) {
   }/txdetail/${reqKey}`;
   // return `https://kadena.architech.nyc/txdetail/${reqKey}`
 }
+
+/**
+ *
+ * @param {import("@kcf/kda-wallet-base").NonNullChainwebNetworkId} networkId
+ */
+export function defaultChainwebEndpoint(networkId) {
+  if (networkId === "testnet04") {
+    return "https://api.testnet.chainweb.com";
+  }
+  return "https://api.chainweb.com";
+}

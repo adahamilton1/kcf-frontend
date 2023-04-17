@@ -66,6 +66,39 @@ function showWalletConnectedDiv(currentWallet) {
 
 /**
  *
+ * @returns {HTMLButtonElement[]}
+ */
+function getAllSignButtons() {
+  return [
+    // @ts-ignore
+    document.getElementById("sign-simulate-button"),
+    // @ts-ignore
+    document.getElementById("sign-send-button"),
+    // @ts-ignore
+    document.getElementById("quicksign-simulate-button"),
+    // @ts-ignore
+    document.getElementById("quicksign-send-button"),
+  ];
+}
+
+function disableSignButtons() {
+  getAllSignButtons().forEach((btn) => {
+    if (!btn.hasAttribute("disabled")) {
+      btn.setAttribute("disabled", "");
+    }
+  });
+}
+
+function enableSignButtons() {
+  getAllSignButtons().forEach((btn) => {
+    while (btn.hasAttribute("disabled")) {
+      btn.removeAttribute("disabled");
+    }
+  });
+}
+
+/**
+ *
  * @param {CustomEvent<import("@kcf/kda-wallet-web-components-base").WalletConnectedEvent>} event
  */
 function onWalletConnected(event) {
@@ -74,6 +107,7 @@ function onWalletConnected(event) {
   } = event;
   hideConnectBtn();
   showWalletConnectedDiv(wallet);
+  enableSignButtons();
 }
 
 /**
@@ -83,6 +117,7 @@ function onWalletConnected(event) {
 function onWalletDisconnected(_event) {
   showConnectBtn();
   hideWalletConnectedDiv();
+  disableSignButtons();
 }
 
 function onPageParsed() {

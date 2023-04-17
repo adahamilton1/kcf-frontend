@@ -5,7 +5,7 @@
     <script type="module" src="/js/common/darkMode.js"></script>
 
     <!-- page-specific -->
-    <script type="module" src="/js/index/index.js"></script>
+    <script type="module" src="/js/index/connectWalletDialog.js"></script>
     <script type="module" src="/js/index/dialogs/dialogModals.js"></script>
     <script
       type="module"
@@ -18,6 +18,12 @@
       src="/js/index/header/walletInfoDiv/index.js"
     ></script>
     <script type="module" src="/js/index/form/addCapButton.js"></script>
+    <script
+      type="module"
+      src="/js/index/form/readonlySimulateButton.js"
+    ></script>
+    <!-- needs to be last to allow all wallet listeners to be attached before autoresume happens -->
+    <script type="module" src="/js/index/index.js"></script>
 
     <!-- css -->
     <link href="css/index.css" rel="stylesheet" />
@@ -121,6 +127,7 @@
           <label class="min-w-[66%] grow">
             <p>Chainweb Endpoint (optional)</p>
             <input
+              name="chainwebEndpoint"
               class="w-full"
               type="text"
               placeholder="https://api.testnet.chainweb.com"
@@ -141,43 +148,43 @@
             <p>Chain ID</p>
             <select name="chainId" class="w-full">
               <option value="0" selected>0</option>
-              <option value="1" selected>1</option>
-              <option value="2" selected>2</option>
-              <option value="3" selected>3</option>
-              <option value="4" selected>4</option>
-              <option value="5" selected>5</option>
-              <option value="6" selected>6</option>
-              <option value="7" selected>7</option>
-              <option value="8" selected>8</option>
-              <option value="9" selected>9</option>
-              <option value="10" selected>10</option>
-              <option value="11" selected>11</option>
-              <option value="12" selected>12</option>
-              <option value="13" selected>13</option>
-              <option value="14" selected>14</option>
-              <option value="15" selected>15</option>
-              <option value="16" selected>16</option>
-              <option value="17" selected>17</option>
-              <option value="18" selected>18</option>
-              <option value="19" selected>19</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
             </select>
           </label>
           <label class="min-w-[27%] flex-1">
             <p>Gas Limit</p>
-            <input type="number" name="gasLimit" class="w-full" />
+            <input type="tel" name="gasLimit" class="w-full" />
           </label>
           <label class="min-w-[27%] flex-1">
             <p>Gas Price</p>
             <input
-              type="number"
+              inputmode="decimal"
               name="gasPrice"
-              class="w-full"
               value="0.000001"
+              class="w-full"
             />
           </label>
           <label class="min-w-[27%] flex-1">
             <p>TTL</p>
-            <input type="number" name="ttl" class="w-full" />
+            <input type="tel" name="ttl" value="600" class="w-full" />
           </label>
         </fieldset>
         <fieldset>
@@ -194,7 +201,7 @@
               rows="6"
               name="code"
               class="w-full"
-              placeholder="(coin.transfer 'sender 'receiver (read-decimal 'amount))"
+              placeholder='(coin.transfer "sender" "receiver" (read-decimal "amount"))'
             ></textarea>
           </label>
         </fieldset>
@@ -215,27 +222,51 @@
         <hr />
         <fieldset>
           <legend>Sign</legend>
-          <button class="flip-button min-w-[200px] flex-1" type="button">
+          <button
+            id="sign-simulate-button"
+            class="flip-button min-w-[200px] flex-1"
+            type="button"
+            disabled
+          >
             Simulate
           </button>
-          <button class="flip-button-submit min-w-[200px] flex-1" type="button">
+          <button
+            id="sign-send-button"
+            class="flip-button-submit min-w-[200px] flex-1"
+            type="button"
+            disabled
+          >
             Send
           </button>
         </fieldset>
         <hr />
         <fieldset>
           <legend>Quicksign</legend>
-          <button class="flip-button min-w-[200px] flex-1" type="button">
+          <button
+            id="quicksign-simulate-button"
+            class="flip-button min-w-[200px] flex-1"
+            type="button"
+            disabled
+          >
             Simulate
           </button>
-          <button class="flip-button-submit min-w-[200px] flex-1" type="button">
+          <button
+            id="quicksign-send-button"
+            class="flip-button-submit min-w-[200px] flex-1"
+            type="button"
+            disabled
+          >
             Send
           </button>
         </fieldset>
         <hr />
         <fieldset>
           <legend>Read-Only</legend>
-          <button class="flip-button min-w-[200px] flex-1" type="button">
+          <button
+            id="readonly-simulate-button"
+            class="flip-button min-w-[200px] flex-1"
+            type="button"
+          >
             Simulate
           </button>
         </fieldset>
@@ -243,7 +274,13 @@
       </form>
       <label class="w-full">
         <legend>Result</legend>
-        <textarea rows="6" name="data" class="w-full" disabled></textarea>
+        <textarea
+          id="result-textarea"
+          rows="12"
+          name="data"
+          class="w-full whitespace-pre-wrap"
+          readonly
+        ></textarea>
       </label>
     </main>
     <hr class="w-full" />
@@ -342,7 +379,7 @@
     </dialog>
     <!-- templates -->
     <template id="cap-template">
-      <div class="rounded-container flex w-full flex-col p-2">
+      <div class="rounded-container flex w-full flex-col gap-2 p-2">
         <button aria-label="close" type="button" class="self-end">x</button>
         <fieldset class="flex flex-wrap">
           <label class="basis-full">
@@ -351,7 +388,7 @@
               type="text"
               name="cap0"
               class="cap-input w-full"
-              placeholder="(coin.TRANSFER 'sender 'receiver 1.0)"
+              placeholder="coin.TRANSFER"
             />
           </label>
           <label class="basis-full">
@@ -362,19 +399,34 @@
               class="cap-signer-input w-full"
             />
           </label>
+          <p class="basis-full">Args</p>
         </fieldset>
+        <button type="button" class="add-cap-arg-button flip-button">
+          Add Arg
+        </button>
       </div>
     </template>
+    <template id="cap-arg-template">
+      <div class="cap-arg-row flex w-full gap-2">
+        <input
+          type="text"
+          name="cap0Arg0"
+          class="cap-arg-input flex-1"
+          placeholder='sender | true | { "decimal": "1.0" })'
+        />
+        <button aria-label="close" type="button">x</button>
+      </div>
+    </template>
+    <template id="confirm-dialog-template">
+      <dialog>
+        <section class="dialog-container overflow-hidden">
+          <header class="flex items-center">
+            <h2 class="flex-1"></h2>
+            <button aria-label="close" type="button">x</button>
+          </header>
+          <button type="button" class="flip-button-submit">OK</button>
+        </section>
+      </dialog>
+    </template>
   </body>
-  <template id="confirm-dialog-template">
-    <dialog>
-      <section class="dialog-container overflow-hidden">
-        <header class="flex items-center">
-          <h2 class="flex-1"></h2>
-          <button aria-label="close" type="button">x</button>
-        </header>
-        <button type="button" class="flip-button-submit">Confirm</button>
-      </section>
-    </dialog>
-  </template>
 </html>

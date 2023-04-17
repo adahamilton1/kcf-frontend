@@ -10,6 +10,19 @@ function mkCapSignerName(index) {
   return `cap${index}Signer`;
 }
 
+function mkCapArg(capIndex, argIndex) {
+  return `cap${capIndex}Arg${argIndex}`;
+}
+
+/**
+ *
+ * @param {string} capX
+ * @returns {RegExpMatchArray | null}
+ */
+export function matchCapIndex(capX) {
+  return capX.match(CAP_INDEX_REGEXP);
+}
+
 /**
  *
  * @param {string} capX
@@ -17,7 +30,7 @@ function mkCapSignerName(index) {
  * @throws if capX not in correct format
  */
 export function parseCapIndex(capX) {
-  const match = capX.match(CAP_INDEX_REGEXP);
+  const match = matchCapIndex(capX);
   if (match === null) {
     throw new Error("cap index regex unmatched");
   }
@@ -29,17 +42,54 @@ const CAP_SIGNER_REGEXP = /^cap([0-9]+)Signer$/;
 /**
  *
  * @param {string} capXSigner
+ * @returns {RegExpMatchArray | null}
+ */
+export function matchCapSigner(capXSigner) {
+  return capXSigner.match(CAP_SIGNER_REGEXP);
+}
+
+/**
+ *
+ * @param {string} capXSigner
  * @returns {number} X
  * @throws if capXSigner not in correct format
  */
 export function parseCapSigner(capXSigner) {
-  const match = capXSigner.match(CAP_SIGNER_REGEXP);
+  const match = matchCapSigner(capXSigner);
   if (match === null) {
     throw new Error("cap signer regex unmatched");
   }
   return Number(match[1]);
 }
 
+const CAP_ARG_REGEXP = /^cap([0-9]+)Arg([0-9]+)$/;
+
+/**
+ *
+ * @param {string} capXArgXY
+ * @returns {RegExpMatchArray | null}
+ */
+export function matchCapArg(capXArgXY) {
+  return capXArgXY.match(CAP_ARG_REGEXP);
+}
+
+/**
+ *
+ * @param {string} capXArgXY
+ * @returns {{ capIndex: number; argIndex: number }}
+ * @throws if capXArgXY not in correct format
+ */
+export function parseCapArg(capXArgXY) {
+  const match = matchCapArg(capXArgXY);
+  if (match === null) {
+    throw new Error("cap signer regex unmatched");
+  }
+  return { capIndex: Number(match[1]), argIndex: Number(match[2]) };
+}
+
+/**
+ * @returns {HTMLDivElement}
+ */
 export function addCap() {
   /** @type {HTMLDivElement} */
   // @ts-ignore
@@ -76,7 +126,52 @@ export function addCap() {
       }
     });
   };
+  /** @type {HTMLButtonElement} */
+  // @ts-ignore
+  const addCapArgButton = newCapDiv.querySelector(`button.add-cap-arg-button`);
+  addCapArgButton.onclick = () => addCapArg(newCapDiv, index);
+
   container.appendChild(newCapDiv);
+  return newCapDiv;
+}
+
+/**
+ *
+ * @param {HTMLDivElement} capDiv
+ * @param {number} capIndex
+ * @returns {HTMLDivElement}
+ */
+function addCapArg(capDiv, capIndex) {
+  /** @type {HTMLFieldSetElement} */
+  // @ts-ignore
+  const fieldset = capDiv.querySelector("fieldset");
+  const lastArg = fieldset.lastElementChild;
+  let argIndex = 0;
+  if (lastArg && lastArg.classList.contains("cap-arg-row")) {
+    /** @type {HTMLInputElement} */
+    // @ts-ignore
+    const inp = lastArg.querySelector(".cap-arg-input");
+    argIndex = parseCapArg(inp.name).argIndex + 1;
+  }
+  /** @type {HTMLTemplateElement} */
+  // @ts-ignore
+  const template = document.getElementById("cap-arg-template");
+  /** @type {HTMLDivElement} */
+  // @ts-ignore
+  const newArgRow = template.content.firstElementChild.cloneNode(true);
+  /** @type {HTMLInputElement} */
+  // @ts-ignore
+  const capInput = newArgRow.querySelector("input");
+  capInput.name = mkCapArg(capIndex, argIndex);
+  /** @type {HTMLButtonElement} */
+  // @ts-ignore
+  const closeBtn = newArgRow.querySelector(`button[aria-label="close"]`);
+  closeBtn.onclick = () => {
+    fieldset.removeChild(newArgRow);
+  };
+
+  fieldset.appendChild(newArgRow);
+  return newArgRow;
 }
 
 /**
