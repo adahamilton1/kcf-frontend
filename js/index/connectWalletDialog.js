@@ -1,10 +1,12 @@
 import {
   WALLET_CONNECTED_EVENT_NAME,
   WALLET_DISCONNECTED_EVENT_NAME,
+  WALLET_ERROR_EVENT_NAME,
 } from "@kcf/kda-wallet-web-components-base";
 import { HIDDEN_CLASS_NAME } from "@/js/common/consts";
 import { truncateStrEllipsis } from "@/js/common/utils";
 import { getConnectedAccountPubkey } from "@/js/lib/kcf/utils";
+import { getResultTextArea, updateResult } from "@/js/index/form/utils";
 
 const CONNECT_WALLET_BUTTON_ID = "connect-wallet-button";
 const WALLET_CONNECTED_DIV_ID = "wallet-connected-div";
@@ -120,6 +122,18 @@ function onWalletDisconnected(_event) {
   disableSignButtons();
 }
 
+/**
+ *
+ * @param {CustomEvent<import("@kcf/kda-wallet-web-components-base").WalletErrorEvent>} event
+ */
+function onWalletError(event) {
+  const {
+    detail: { error },
+  } = event;
+  updateResult(error.message, true);
+  getResultTextArea().focus();
+}
+
 function onPageParsed() {
   const connectWalletDialog = getConnectWalletDialog();
   connectWalletDialog.addEventListener(
@@ -130,6 +144,7 @@ function onPageParsed() {
     WALLET_DISCONNECTED_EVENT_NAME,
     onWalletDisconnected
   );
+  connectWalletDialog.addEventListener(WALLET_ERROR_EVENT_NAME, onWalletError);
 }
 
 onPageParsed();

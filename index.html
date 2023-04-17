@@ -17,6 +17,8 @@
       type="module"
       src="/js/index/header/walletInfoDiv/index.js"
     ></script>
+
+    <script type="module" src="/js/index/form/networkIdSelect.js"></script>
     <script type="module" src="/js/index/form/addCapButton.js"></script>
     <script type="module" src="/js/index/form/shareButton.js"></script>
     <script type="module" src="/js/index/form/saveTemplateButton.js"></script>
@@ -549,6 +551,26 @@
             <p>
               Both dapps are built with react.js while this is built with
               vanilla js
+            </p>
+          </section>
+        </details>
+        <details>
+          <summary class="cursor-pointer font-semibold">
+            I can't get WalletConnect working on my iPhone, please help.
+          </summary>
+          <section class="mt-2 flex flex-col gap-2">
+            <p>
+              If nothing seems to happen after you paste the WalletConnect code
+              into your mobile wallet on the same device, it might be due to an
+              iOS bug introduced after iOS 15.
+            </p>
+            <p>
+              You can resolve this issue by disabling "NSURLSession WebSocket"
+              under System Settings on iOS:
+            </p>
+            <p>
+              Settings > Safari > Advanced > Experimental Features >
+              NSURLSession WebSocket
             </p>
           </section>
         </details>

@@ -11,7 +11,6 @@ import {
   parseCapIndex,
   parseCapSigner,
 } from "@/js/index/utils";
-import { getConnectWalletDialog } from "@/js/index/connectWalletDialog";
 
 /**
  * @typedef {{
@@ -146,7 +145,11 @@ export function parseForm() {
         break;
     }
   }
-  const { connectedWallet } = getConnectWalletDialog();
+  // TODO: fix dep cycle from using getConnectWalletDialog()
+  /** @type {import("@kcf/kda-wallet-connect-dialog").KdaWalletConnectDialog} */
+  // @ts-ignore
+  const dialog = document.querySelector("kda-wallet-connect-dialog");
+  const { connectedWallet } = dialog;
   if (capMap.size > 0) {
     const pubKey = connectedWallet ? connectedWallet.accounts[0].pubKey : "";
     for (const { signer, cap, args } of capMap.values()) {
