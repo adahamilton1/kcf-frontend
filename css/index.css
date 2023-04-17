@@ -27,10 +27,15 @@
     @apply text-2xl;
   }
 
+  /* required for @kcf web components */
+  h6 {
+    @apply text-xl;
+  }
+
   legend {
     @apply w-full;
     @apply text-center;
-    @apply text-2xl;
+    @apply text-3xl;
   }
 
   dialog {
@@ -55,7 +60,43 @@
     @apply self-center;
     @apply m-auto;
 
-    /* border */
+    @apply rounded-container;
+  }
+
+  fieldset {
+    @apply flex;
+    @apply flex-row;
+    @apply flex-wrap;
+    @apply gap-2;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply rounded-container;
+    @apply bg-transparent;
+    @apply p-1;
+  }
+
+  /* required to match text input height */
+  /*
+  select {
+    @apply p-1.5;
+  }
+  */
+
+  option {
+    @apply dark:bg-dark-main;
+    @apply bg-light-main;
+  }
+
+  a {
+    @apply underline;
+  }
+}
+
+@layer components {
+  .rounded-container {
     @apply rounded-md;
     @apply border-light-primary;
     @apply dark:border-dark-primary;
@@ -74,6 +115,47 @@
     @apply gap-2;
   }
 
+  kda-wallet-connect-dialog > dialog > section,
+  .kda-wallet-chainweaver-connect-dialog > section,
+  .kda-wallet-chainweaver-connect-dialog form {
+    @apply dialog-container;
+  }
+
+  .kda-wallet-chainweaver-connect-dialog input {
+    @apply w-full;
+  }
+
+  kda-wallet-connect-dialog > dialog > section > header,
+  .kda-wallet-chainweaver-connect-dialog > section > header {
+    @apply flex;
+    @apply gap-2;
+    @apply items-center;
+    @apply justify-between;
+    @apply w-full;
+  }
+
+  .wallet-button,
+  kda-wallet-chainweaver-connect-button > button,
+  kda-wallet-eckowallet-connect-button > button,
+  kda-wallet-walletconnect-connect-button > button,
+  kda-wallet-zelcore-connect-button > button,
+  .kda-wallet-chainweaver-connect-dialog form button {
+    @apply block;
+    @apply w-full;
+    @apply p-2;
+    @apply text-xl;
+    @apply rounded-container;
+    @apply text-light-faded;
+    @apply dark:text-dark-faded;
+
+    @apply enabled:text-light-primary;
+    @apply enabled:dark:text-dark-primary;
+    @apply enabled:hover:bg-light-hover;
+    @apply enabled:focus:bg-light-hover;
+    @apply enabled:dark:hover:bg-dark-hover;
+    @apply enabled:dark:focus:bg-dark-hover;
+  }
+
   #hero-image {
     @apply coin-img;
 
@@ -87,58 +169,21 @@
     @apply aspect-square;
   }
 
-  .flip-buttons-fieldset {
-    @apply flex;
-    @apply w-full;
-    @apply flex-col;
-    @apply items-center;
-    @apply justify-between;
-    @apply space-y-4;
-  }
-
-  .flip-buttons-container {
-    @apply w-full;
-    @apply flex;
-    @apply flex-row;
-    @apply flex-wrap;
-    @apply gap-4;
-  }
-
   .flip-button-base {
     @apply block;
     @apply p-2;
     @apply text-3xl;
     @apply text-center;
     @apply uppercase;
-    @apply rounded-md;
-    @apply border-light-primary;
-    @apply dark:border-dark-primary;
-    @apply border-2;
+    @apply rounded-container;
 
     /* grow animation */
     @apply duration-200;
     @apply ease-in-out;
-    @apply hover:scale-110;
-    @apply focus:scale-110;
-  }
-
-  .wallet-button {
-    @apply block;
-    @apply p-2;
-    @apply text-xl;
-    @apply rounded-md;
-    @apply border-light-primary;
-    @apply dark:border-dark-primary;
-    @apply border-2;
-    @apply text-light-faded;
-    @apply dark:text-dark-faded;
-
-    @apply enabled:text-light-primary;
-    @apply enabled:dark:text-dark-primary;
-    @apply enabled:hover:bg-light-hover;
-    @apply enabled:focus:bg-light-hover;
-    @apply enabled:dark:hover:bg-dark-hover;
-    @apply enabled:dark:focus:bg-dark-hover;
+    @apply enabled:hover:scale-110;
+    @apply enabled:focus:scale-110;
+    @apply disabled:text-light-faded;
+    @apply dark:disabled:text-dark-faded;
   }
 
   .flip-button {
@@ -150,15 +195,11 @@
   .flip-button-submit {
     @apply flip-button-base;
     @apply bg-button-complementary;
+    @apply text-light-primary;
   }
 
   .flip-button-selected {
     @apply border-8;
-  }
-
-  .close-dialog-button-img {
-    @apply aspect-square;
-    @apply w-4;
   }
 
   .icon-button {

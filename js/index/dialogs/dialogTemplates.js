@@ -1,4 +1,3 @@
-import { rerenderImg } from "@/js/common/darkMode";
 import { setupDialog } from "@/js/index/dialogs/listeners";
 
 /**
@@ -18,7 +17,6 @@ export function spawnModal(templateId) {
   dialog.addEventListener("close", () => {
     document.body.removeChild(dialog);
   });
-  dialog.querySelectorAll("img.close-dialog-button-img").forEach(rerenderImg);
   dialog.showModal();
   return dialog;
 }

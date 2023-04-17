@@ -1,8 +1,5 @@
-/* eslint-disable no-restricted-imports */
-
-/** FUNCTIONS HERE ARE USED SERVER-SIDE, DO NOT USE ANY @/ LOCAL IMPORTS */
-
-import { DEFAULT_NETWORK_ID, DEFAULT_NETWORK_VERSION } from "../kcf/consts";
+const DEFAULT_NETWORK_ID = "testnet04";
+const DEFAULT_NETWORK_VERSION = "0.0";
 
 /**
  * @typedef SigningRequest
@@ -270,4 +267,15 @@ export function toExplorerLink(reqKey) {
     DEFAULT_NETWORK_ID === "testnet04" ? "testnet" : "mainnet"
   }/txdetail/${reqKey}`;
   // return `https://kadena.architech.nyc/txdetail/${reqKey}`
+}
+
+/**
+ *
+ * @param {import("@kcf/kda-wallet-base").NonNullChainwebNetworkId} networkId
+ */
+export function defaultChainwebEndpoint(networkId) {
+  if (networkId === "testnet04") {
+    return "https://api.testnet.chainweb.com";
+  }
+  return "https://api.chainweb.com";
 }
