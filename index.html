@@ -17,6 +17,7 @@
       type="module"
       src="/js/index/header/walletInfoDiv/index.js"
     ></script>
+    <script type="module" src="/js/index/form/addCapButton.js"></script>
 
     <!-- css -->
     <link href="css/index.css" rel="stylesheet" />
@@ -118,7 +119,7 @@
         <fieldset>
           <legend>Network</legend>
           <label class="min-w-[66%] grow">
-            <p>Chainweb Endpoint</p>
+            <p>Chainweb Endpoint (optional)</p>
             <input
               class="w-full"
               type="text"
@@ -135,6 +136,7 @@
           </label>
         </fieldset>
         <fieldset>
+          <legend>Meta</legend>
           <label>
             <p>Chain ID</p>
             <select name="chainId" class="w-full">
@@ -166,7 +168,12 @@
           </label>
           <label class="min-w-[27%] flex-1">
             <p>Gas Price</p>
-            <input type="number" name="gasPrice" class="w-full" />
+            <input
+              type="number"
+              name="gasPrice"
+              class="w-full"
+              value="0.000001"
+            />
           </label>
           <label class="min-w-[27%] flex-1">
             <p>TTL</p>
@@ -175,8 +182,8 @@
         </fieldset>
         <fieldset>
           <legend>Capabilities</legend>
-          <div id="cap-container" class="w-full"></div>
-          <button type="button" class="flip-button w-full">
+          <div id="cap-container" class="flex w-full flex-col gap-2"></div>
+          <button id="add-cap-button" type="button" class="flip-button w-full">
             Add Capability
           </button>
         </fieldset>
@@ -207,14 +214,32 @@
         </fieldset>
         <hr />
         <fieldset>
-          <legend>Transaction</legend>
-          <button class="flip-button-submit min-w-[200px] flex-1" type="button">
+          <legend>Sign</legend>
+          <button class="flip-button min-w-[200px] flex-1" type="button">
             Simulate
           </button>
           <button class="flip-button-submit min-w-[200px] flex-1" type="button">
             Send
           </button>
         </fieldset>
+        <hr />
+        <fieldset>
+          <legend>Quicksign</legend>
+          <button class="flip-button min-w-[200px] flex-1" type="button">
+            Simulate
+          </button>
+          <button class="flip-button-submit min-w-[200px] flex-1" type="button">
+            Send
+          </button>
+        </fieldset>
+        <hr />
+        <fieldset>
+          <legend>Read-Only</legend>
+          <button class="flip-button min-w-[200px] flex-1" type="button">
+            Simulate
+          </button>
+        </fieldset>
+        <hr />
       </form>
       <label class="w-full">
         <legend>Result</legend>
@@ -306,9 +331,9 @@
           <button aria-label="close" type="button">x</button>
         </header>
         <details>
-          <!-- prettier-ignore to preserve leading whitespace -->
-          <!-- prettier-ignore -->
-          <summary class="cursor-pointer font-semibold"> What is KCF transactor?</summary>
+          <summary class="cursor-pointer font-semibold">
+            What is KCF transactor?
+          </summary>
           <section class="mt-2 flex flex-col gap-2">
             <p>TODO</p>
           </section>
@@ -320,45 +345,36 @@
       <div class="rounded-container flex w-full flex-col p-2">
         <button aria-label="close" type="button" class="self-end">x</button>
         <fieldset class="flex flex-wrap">
-          <label class="min-w-[200px] flex-1">
-            <p>Name</p>
+          <label class="basis-full">
+            <p>Capability</p>
             <input
               type="text"
-              name="cap0Name"
-              class="w-full"
-              placeholder="coin.TRANSFER"
+              name="cap0"
+              class="cap-input w-full"
+              placeholder="(coin.TRANSFER 'sender 'receiver 1.0)"
             />
           </label>
-          <label class="min-w-[200px] flex-1">
-            <p>Signer</p>
+          <label class="basis-full">
+            <p>Signer (optional, default wallet pubkey)</p>
             <input
               type="text"
               name="cap0Signer"
-              class="w-full"
-              placeholder="optional (default wallet pubkey)"
+              class="cap-signer-input w-full"
             />
           </label>
-          <div class="flex basis-full flex-wrap items-center gap-2">
-            <div class="args-container flex flex-1 basis-full flex-col gap-2">
-              <p>Args</p>
-            </div>
-            <button type="button" class="flip-button grow basis-0">
-              Add Arg
-            </button>
-          </div>
         </fieldset>
       </div>
     </template>
-    <template id="cap-arg-template">
-      <div class="flex justify-between gap-2">
-        <input
-          type="text"
-          name="cap0arg0"
-          class="flex-1"
-          placeholder="0.0, true, a string"
-        />
-        <button type="button" aria-label="close">x</button>
-      </div>
-    </template>
   </body>
+  <template id="confirm-dialog-template">
+    <dialog>
+      <section class="dialog-container overflow-hidden">
+        <header class="flex items-center">
+          <h2 class="flex-1"></h2>
+          <button aria-label="close" type="button">x</button>
+        </header>
+        <button type="button" class="flip-button-submit">Confirm</button>
+      </section>
+    </dialog>
+  </template>
 </html>

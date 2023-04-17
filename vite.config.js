@@ -48,7 +48,7 @@ export default defineConfig({
       includeAssets: [`/favicon.ico`, `/images/*`, "/sfx/*"],
       manifest: {
         name: "KCF Transactor",
-        short_name: "KCF",
+        short_name: "KCFT",
         description:
           "A simple Kadena transaction execution interface for fast feedback and experimentation",
         icons: [

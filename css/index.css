@@ -35,7 +35,7 @@
   legend {
     @apply w-full;
     @apply text-center;
-    @apply text-2xl;
+    @apply text-3xl;
   }
 
   dialog {
@@ -192,11 +192,6 @@
 
   .flip-button-selected {
     @apply border-8;
-  }
-
-  .close-dialog-button-img {
-    @apply aspect-square;
-    @apply w-4;
   }
 
   .icon-button {
