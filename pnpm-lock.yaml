@@ -8,8 +8,8 @@ dependencies:
     specifier: ^1.0.0
     version: 1.0.0
   '@kcf/kda-wallet-connect-dialog':
-    specifier: ^1.0.0
-    version: 1.0.0
+    specifier: ^1.0.1
+    version: 1.0.1
   '@kcf/kda-wallet-eckowallet-connect-button':
     specifier: ^1.0.0
     version: 1.0.0
@@ -2129,8 +2129,8 @@ packages:
       - supports-color
     dev: false
 
-  /@kcf/kda-wallet-connect-dialog@1.0.0:
-    resolution: {integrity: sha512-ItfEiX3Ern0xnLcRc+Cy9DWgVf2evILNZhISAcsGETJcPbGDxuqa9Huyw5pp0yhAnxA+KhTNWgf/RivAd1zRhw==}
+  /@kcf/kda-wallet-connect-dialog@1.0.1:
+    resolution: {integrity: sha512-1a9im5kXVRkG6/aYsNBadyZ3712+iOqvOXMdSiDvJdMiPTHEdN8t5CMPu0/Nj+4v/xXYY9kW2NIuoNJfvm/2KA==}
     dependencies:
       '@kcf/kda-wallet-base': 1.1.0
       '@kcf/kda-wallet-web-components-base': 1.0.0

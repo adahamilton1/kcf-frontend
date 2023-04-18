@@ -39,7 +39,7 @@
   "dependencies": {
     "@kadena/client": "^0.1.10",
     "@kcf/kda-wallet-chainweaver-connect-button": "^1.0.0",
-    "@kcf/kda-wallet-connect-dialog": "^1.0.0",
+    "@kcf/kda-wallet-connect-dialog": "^1.0.1",
     "@kcf/kda-wallet-eckowallet-connect-button": "^1.0.0",
     "@kcf/kda-wallet-walletconnect-connect-button": "^1.0.0",
     "@kcf/kda-wallet-web-components-base": "^1.0.0",
