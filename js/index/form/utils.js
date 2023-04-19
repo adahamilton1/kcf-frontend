@@ -276,6 +276,22 @@ function updateInputValue(keyName, urlSearchParams) {
 
 /**
  *
+ * @param {URLSearchParams} urlSearchParams
+ */
+function updateDataValue(urlSearchParams) {
+  updateInputValue("data", urlSearchParams);
+  try {
+    /** @type {HTMLInputElement} */
+    // @ts-ignore
+    const input = document.querySelector(`[name="data"]`);
+    input.value = JSON.stringify(JSON.parse(input.value), undefined, 2);
+  } catch (e) {
+    console.warn("Non-JSON data detected", e);
+  }
+}
+
+/**
+ *
  * @param {string} keyName
  * @param {URLSearchParams} urlSearchParams
  */
@@ -352,7 +368,7 @@ export function parseGetParamsUpdateForm(urlSearchParams) {
   updateInputValue("ttl", urlSearchParams);
   updateInputValue("sender", urlSearchParams);
   updateInputValue("code", urlSearchParams);
-  updateInputValue("data", urlSearchParams);
+  updateDataValue(urlSearchParams);
   const maybeSignersStr = urlSearchParams.get("signers");
   if (maybeSignersStr) {
     /** @type {import("@kadena/client").IPactCommand["signers"]} */
