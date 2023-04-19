@@ -115,7 +115,7 @@ export function parseForm() {
         maybeMatchCapArg = matchCapArg(name);
         if (
           maybeMatchCapIndex === null &&
-          maybeMatchCapIndex === null &&
+          maybeMatchCapSigner === null &&
           maybeMatchCapArg === null
         ) {
           break;
