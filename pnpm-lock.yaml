@@ -16,6 +16,9 @@ dependencies:
   '@kcf/kda-wallet-walletconnect-connect-button':
     specifier: ^1.0.0
     version: 1.0.0(react@18.2.0)
+  '@kcf/kda-wallet-walletconnect-connect-button-v2':
+    specifier: npm:@kcf/kda-wallet-walletconnect-connect-button@^2.0.0
+    version: /@kcf/kda-wallet-walletconnect-connect-button@2.0.0(react@18.2.0)
   '@kcf/kda-wallet-web-components-base':
     specifier: ^1.0.0
     version: 1.0.0
@@ -2166,8 +2169,36 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@kcf/kda-wallet-walletconnect-connect-button@2.0.0(react@18.2.0):
+    resolution: {integrity: sha512-wKoe1of1YqJE9aFxNstiLFLBA0b6F+FTNy8I45e9Y9nDkACiqmEZfAr+vNSypdlog5iw8LwCjmMtgso0ttKxtw==}
+    dependencies:
+      '@kcf/kda-wallet-base': 1.1.0
+      '@kcf/kda-wallet-walletconnect': 2.0.0
+      '@kcf/kda-wallet-web-components-base': 1.0.0
+      '@web3modal/standalone': 2.3.0(react@18.2.0)
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - lokijs
+      - react
+      - utf-8-validate
+    dev: false
+
   /@kcf/kda-wallet-walletconnect@1.0.0:
     resolution: {integrity: sha512-4PISaQKFhOzGfJ5kL2WA/Ki3Fh2mOVHmgQ9yt5f9GN1Yi2fBQ77honUIAmAwB9bsslmToWsLSs6vF4EXDgRLrA==}
+    dependencies:
+      '@kcf/kda-wallet-base': 1.1.0
+      '@walletconnect/sign-client': 2.7.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - lokijs
+      - utf-8-validate
+    dev: false
+
+  /@kcf/kda-wallet-walletconnect@2.0.0:
+    resolution: {integrity: sha512-4ZilDkIiodiXRh8syng+pw9IieONzysQcRETVgvZIXmWSVSTtb/hjXjlobR5Bc52msaFkOQza/Dd65Vw94N7qQ==}
     dependencies:
       '@kcf/kda-wallet-base': 1.1.0
       '@walletconnect/sign-client': 2.7.0

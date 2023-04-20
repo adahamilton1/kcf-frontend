@@ -138,6 +138,7 @@
   kda-wallet-chainweaver-connect-button > button,
   kda-wallet-eckowallet-connect-button > button,
   kda-wallet-walletconnect-connect-button > button,
+  kda-wallet-walletconnect-connect-button-v2 > button,
   kda-wallet-zelcore-connect-button > button,
   .kda-wallet-chainweaver-connect-dialog form button {
     @apply block;

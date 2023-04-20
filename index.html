@@ -405,8 +405,17 @@
         autoresume
         network-id="testnet04"
       ></kda-wallet-eckowallet-connect-button>
-      <kda-wallet-walletconnect-connect-button
+      <!-- must turn off autoresume for one of the walletconnect buttons else both will attempt to reconnect -->
+      <kda-wallet-walletconnect-connect-button-v2
         autoresume
+        network-id="testnet04"
+        wc-project-id="67ce47db9e4c2585385be3581ee3cb9d"
+        wc-project-name="KCF Transactor"
+        wc-project-description="A simple Kadena transaction execution interface for fast feedback and experimentation"
+        wc-project-url="https://kcf.wtf"
+        wc-project-icon="https://kcf.wtf/images/logo/logo.svg"
+      ></kda-wallet-walletconnect-connect-button-v2>
+      <kda-wallet-walletconnect-connect-button
         network-id="testnet04"
         wc-project-id="67ce47db9e4c2585385be3581ee3cb9d"
         wc-project-name="KCF Transactor"

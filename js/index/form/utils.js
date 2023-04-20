@@ -303,6 +303,7 @@ function updateSelectValue(keyName, urlSearchParams) {
   if (saved === null) {
     return;
   }
+  let hasChanged = false;
   for (const optionRaw of input.children) {
     /** @type {HTMLOptionElement} */
     // @ts-ignore
@@ -310,10 +311,16 @@ function updateSelectValue(keyName, urlSearchParams) {
     if (option.value === saved) {
       if (!option.hasAttribute("selected")) {
         option.setAttribute("selected", "1");
+        hasChanged = true;
       }
     } else if (option.hasAttribute("selected")) {
       option.removeAttribute("selected");
+      hasChanged = true;
     }
+  }
+  // need to manually fire change event to trigger wallet buttons updating
+  if (hasChanged) {
+    input.dispatchEvent(new Event("change"));
   }
 }
 
