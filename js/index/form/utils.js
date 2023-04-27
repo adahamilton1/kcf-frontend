@@ -447,14 +447,10 @@ function addFormTemplate({ name, urlSearchParams }) {
   /** @type {HTMLDivElement} */
   // @ts-ignore
   const newFormTemplateRow = template.content.firstElementChild.cloneNode(true);
-  /** @type {HTMLButtonElement} */
+  /** @type {HTMLAnchorElement} */
   // @ts-ignore
-  const selectBtn = newFormTemplateRow.querySelector(
-    `button:not([aria-label="close"])`
-  );
-  selectBtn.onclick = () => {
-    window.location.href = `${window.location.origin}?${urlSearchParams}`;
-  };
+  const selectA = newFormTemplateRow.querySelector("a");
+  selectA.href = `/?${urlSearchParams}`;
   /** @type {HTMLButtonElement} */
   // @ts-ignore
   const closeBtn = newFormTemplateRow.querySelector(

@@ -134,7 +134,9 @@
       </div>
     </nav>
     <main class="flex w-full flex-col items-center gap-y-4">
-      <h1 class="self-center text-center">KCF Transactor</h1>
+      <a href="/" class="no-underline hover:underline focus:underline">
+        <h1 class="self-center text-center">KCF Transactor</h1>
+      </a>
       <form id="tx-form" class="flex w-full flex-col gap-y-4">
         <fieldset>
           <legend>Network</legend>
@@ -629,10 +631,14 @@
       </div>
     </template>
     <template id="saved-template-template">
-      <div class="rounded-container flex items-center justify-between p-2">
-        <button class="w-5/6">
-          <h3 class="w-full truncate break-all text-left"></h3>
-        </button>
+      <div
+        class="rounded-container flex flex-nowrap items-center justify-between p-2"
+      >
+        <a
+          class="block flex-1 truncate break-all text-left no-underline hover:underline focus:underline"
+        >
+          <h3></h3>
+        </a>
         <button aria-label="close" type="button" class="icon-button">x</button>
       </div>
     </template>
